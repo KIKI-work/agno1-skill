@@ -1,0 +1,28 @@
+[project]
+name = "agno1"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "agno",
+    "fastapi[standard]>=0.118.3",
+    "uvicorn>=0.37.0",
+    "mcp>=1.17.0",
+    "openai>=2.3.0",
+    "anthropic>=0.69.0",
+    "sqlalchemy>=2.0.44",
+    "black>=25.9.0",
+    "numpy>=1.21.0",
+    "requests>=2.25.0",
+    "volcengine-python-sdk[ark]>=4.0.24",
+    "lightrag-hku>=1.4.9.2",
+    "unstructured>=0.18.15",
+    "markdown>=3.9",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8.0",
+    "mypy>=1.18.2",
+]

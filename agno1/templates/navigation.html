@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentOS - Navigation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .links {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .link-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .link-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .link-desc {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        .current-path {
+            text-align: center;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AgentOS Navigation</h1>
+        <div class="current-path" id="current-path">Loading current path...</div>
+        
+        <div class="links">
+            <a href="/" class="link-card">
+                <div class="link-title">🏠 Frontend UI</div>
+                <div class="link-desc">Main chat interface and agent interaction</div>
+            </a>
+            
+            <a href="/api/docs" class="link-card">
+                <div class="link-title">📚 API Documentation</div>
+                <div class="link-desc">Interactive OpenAPI documentation</div>
+            </a>
+            
+            <a href="/api/health" class="link-card">
+                <div class="link-title">💚 Health Check</div>
+                <div class="link-desc">System status and health information</div>
+            </a>
+            
+            <a href="/api/agents" class="link-card">
+                <div class="link-title">🤖 Agents API</div>
+                <div class="link-desc">List and manage AI agents</div>
+            </a>
+            
+            <a href="/api/sessions" class="link-card">
+                <div class="link-title">💬 Sessions API</div>
+                <div class="link-desc">Chat sessions and conversation history</div>
+            </a>
+            
+            <a href="/api/teams" class="link-card">
+                <div class="link-title">👥 Teams API</div>
+                <div class="link-desc">Agent teams and collaborative workflows</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Get the current path from the browser's location object
+        function updateCurrentPath() {
+            const currentPath = window.location.pathname;
+            const pathElement = document.getElementById('current-path');
+            
+            // Display the actual current path from the URL
+            if (currentPath === '/') {
+                pathElement.textContent = 'Current path: / (root)';
+            } else {
+                pathElement.textContent = `Current path: ${currentPath}`;
+            }
+        }
+
+        // Update path immediately when script loads (before DOM is ready)
+        updateCurrentPath();
+        
+        // Update path on page load (backup for DOM ready)
+        document.addEventListener('DOMContentLoaded', updateCurrentPath);
+        
+        // Update path if the URL changes (for single-page apps or browser navigation)
+        window.addEventListener('popstate', updateCurrentPath);
+        
+        // Also listen for pushstate/replacestate changes (for programmatic navigation)
+        const originalPushState = history.pushState;
+        const originalReplaceState = history.replaceState;
+        
+        history.pushState = function() {
+            originalPushState.apply(history, arguments);
+            setTimeout(updateCurrentPath, 0);
+        };
+        
+        history.replaceState = function() {
+            originalReplaceState.apply(history, arguments);
+            setTimeout(updateCurrentPath, 0);
+        };
+    </script>
+</body>
+</html>

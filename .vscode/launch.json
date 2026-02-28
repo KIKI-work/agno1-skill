@@ -1,0 +1,43 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug AgentOS (FastAPI App)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/.venv/bin/uvicorn",
+      "args": [
+        "agno1.app:create_app_factory",
+        "--factory",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "7777",
+        "--reload"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "AGNO_OS_PORT": "7777"
+      },
+      "justMyCode": false,
+      "stopOnEntry": false
+    },
+    {
+      "name": "Attach to Running Process",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}",
+          "remoteRoot": "."
+        }
+      ],
+      "justMyCode": false
+    }
+  ]
+}

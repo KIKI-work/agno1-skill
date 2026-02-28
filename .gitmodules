@@ -1,0 +1,4 @@
+[submodule "deps/agno-ui"]
+	path = deps/agno-ui
+	url = https://github.com/complyue/agno-ui.git
+	branch = main

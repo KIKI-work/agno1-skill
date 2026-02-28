@@ -1,0 +1,20 @@
+# macOS garbage
+.DS_Store
+._*
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Local data storage
+data/
+
+# Workspace folder
+ws/

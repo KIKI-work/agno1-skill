@@ -1,0 +1,9 @@
+Always read & obey `AGENTS.md` at project root.
+
+**agno1** is an AgentOS instance built on the Agno framework, designed as a comprehensive AI agent platform with integrated frontend capabilities. This project represents an initial-stage implementation that combines the power of Agno's agent orchestration with a modern web interface.
+
+Consult `../agno/cookbook/` for full guidance of Agno based AgentOS development.
+
+If that dir doesn't exist, prompt the user to clone `https://github.com/agno-agi/agno.git` repo there besides this project.
+
+If the AI agent has no access to that dir, prompt the user to add `../agno/` as a workspace root of current project, that usually grants the permission restricted by the coding IDE.

@@ -1,0 +1,107 @@
+# 文档图助手流水线配置
+# 流水线：agno1.pipelines.docviz_diagram_chatgpt
+#
+# 用法：
+#   uv run python -m agno1.pipelines.docviz_diagram_chatgpt -c jobs/docviz_diagram/config.yaml
+#
+# 恢复（从 agent2 继续，不等用户确认）：
+#   uv run python -m agno1.pipelines.docviz_diagram_chatgpt -c jobs/docviz_diagram/config.yaml --resume --no-reply
+#
+# 优先级：命令行参数 > 本文件 > 环境变量 > 默认值
+# 命令行参数名与 YAML key 对应关系见各字段注释（--xxx-yyy 对应 xxx_yyy）
+
+
+# ============================================================
+# 必填
+# ============================================================
+
+# ChatGPT 项目 URL（agent1~4 在此项目对话内执行）
+# --project-url
+project_url: "https://chatgpt.com/g/g-p-699d617dbb248191bdbeaa11c6aee791-tong-yong-ce-shi/project"
+
+
+# ============================================================
+# 用户需求背景（嵌入到 agent1 prompt 的开头）
+# --user-context
+# 不填则 agent1 prompt 无背景块，适合其他场景复用
+# ============================================================
+user_context: |
+  了解 binder 项目，重点理解如何把用例（UC）/ 框架（Frame）/ 3D 测试线收敛成一张可维护的总图（master graph）。
+  目标文档：docs/design_zh/14-uc-frame-3d-graph.md（已在项目 Sources 中）。
+  请围绕这个需求生成图，帮助读者理解三条测试线的关系与收敛方式。
+
+
+# ============================================================
+# 输出与状态
+# ============================================================
+
+# 产出目录：各步骤回复（reply_agent*.md）、state JSON、mermaid_final.md 均写入此目录
+# --out-dir  默认：artifacts/docviz_diagram
+out_dir: "artifacts/docviz_14_uc_frame_3d"
+
+# 状态目录：存放 docviz_diagram_state.json（用于断点续跑）
+# --state-dir  默认：与 out_dir 相同；若需要把状态和产出分开可单独指定
+# state_dir: "artifacts/docviz_14_uc_frame_3d/state"
+
+# 最终 Mermaid 代码插入的目标文档路径（在 <!-- DOC_VIZ_MERMAID --> 处插入或追加到文末）
+# --insert-doc  不填则只输出文件，不修改任何文档
+insert_doc: "docs/design_zh/14-uc-frame-3d-graph.md"
+
+
+# ============================================================
+# 制图文档（scope_docs）
+# ============================================================
+# 参与制图的本地文档路径列表，会打包为 ZIP 上传到项目 Sources
+# --scope-docs
+# 文档已在项目 Sources 时留空即可；首次上传或需要更新时填写
+# scope_docs:
+#   - docs/design_zh/14-uc-frame-3d-graph.md
+#   - projects/design_doc_pack_zh_0.1.11/refs/3d/03_03_uc_3d_skeleton.md
+
+
+# ============================================================
+# SKILL 目录
+# ============================================================
+# agent1~4 各步 SKILL.md 的根目录，默认为仓库根
+# 实际路径：<skill_dir>/agents/skills/docviz-doc-diagram-assistant/reference/skills/<agent>/SKILL.md
+# --skill-dir  默认：仓库根（自动检测）
+# skill_dir: "/m3varK/workspace/agno1"
+
+
+# ============================================================
+# 会话
+# ============================================================
+# Playwright 会话标识（同一 session_id 复用同一浏览器 tab）
+# --session-id  默认：docviz_diagram
+session_id: "docviz_diagram"
+
+
+# ============================================================
+# 断点续跑控制
+# ============================================================
+# resume: true  → 从 state_dir 的 state.json 恢复，跳过已完成步骤
+# no_reply: true → agent1 完成后不暂停等待用户确认，直接继续 agent2→3→4→5
+# 两者均可在命令行用 --resume / --no-reply 覆盖（flag 类型，命令行传即为 true）
+# resume: false
+# no_reply: false
+
+
+# ============================================================
+# 超时与稳定窗口
+# ============================================================
+# 等待 ChatGPT 回复完成的最长时间（秒），长文档可调大
+# --timeout-s  默认：600
+timeout_s: 600
+
+# 判定「回复已稳定/完成」的文本不变持续时间（秒）
+# --stable-text-window-s  默认：6.0
+stable_text_window_s: 6
+
+
+# ============================================================
+# CDP（Chrome DevTools Protocol）
+# ============================================================
+# 连接到已登录 Chrome 的 CDP 端点；不填则用环境变量 CDP_ENDPOINT 或 CDP
+# --cdp  默认：http://127.0.0.1:9222
+# cdp: "http://127.0.0.1:9222"
+# cdp: "ws://127.0.0.1:9222/devtools/browser/<id>"

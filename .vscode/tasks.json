@@ -1,0 +1,100 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Type Check (MyPy)",
+      "type": "shell",
+      "command": "uv",
+      "args": ["run", "mypy", "."],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        {
+          "owner": "mypy",
+          "fileLocation": "absolute",
+          "pattern": {
+            "regexp": "^(.+?):(\\d+):(\\d+): (error|warning|note): (.+)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
+        }
+      ]
+    },
+    {
+      "label": "Format Code (Organize + Black)",
+      "type": "shell",
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "ruff,black",
+        "sh",
+        "-c",
+        "ruff check --select I --fix agno1/ main.py && black agno1/ main.py"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run AgentOS",
+      "type": "shell",
+      "command": "uv",
+      "args": ["run", "main.py"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {}
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run AgentOS (Dev Mode)",
+      "type": "shell",
+      "command": "uv",
+      "args": ["run", "main.py"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "AGNO_RELOAD": "true"
+        }
+      },
+      "problemMatcher": []
+    }
+  ]
+}
