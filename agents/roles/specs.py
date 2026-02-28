@@ -260,24 +260,6 @@ ROLE_SPECS: List[RoleSpec] = [
         skill_path="agents/skills/agno1-prompt-curator/SKILL.md",
     ),
     RoleSpec(
-        id="agno1-hr-screener",
-        name="HR Resume Screener",
-        instructions=[
-            "你是智联招聘简历筛自动化代理，负责驱动 agno1/pipelines/zhaopin_resume_screener.py 流水线。",
-            "当用户要求「开始简历筛选」或「扫描候选人」时，调用流水线的 run_screener() 函数。",
-            "执行前确认：候选人列表页 URL、AI 筛选目标描述、最大打招呼数量。",
-            "如缺少必要参数，向用户询问后再执行，不要使用默认值代替明确需求。",
-            "执行后汇报结果摘要：扫描数、打招呼数、拒绝数、失败数，并告知报告文件路径。",
-            "若遇到 CDP 连接失败，提示用户以 --remote-debugging-port=9222 启动 Chrome 并登录智联招聘。",
-            "若遇到选择器失效，将问题转交 agno1-selector-watchdog 进行诊断。",
-        ],
-        skill_path="agents/skills/agno1-hr-screener/SKILL.md",
-        tools_profile="playwright",
-        enable_user_memories=False,
-        num_history_runs=2,
-        debug_mode=True,
-    ),
-    RoleSpec(
         id="docviz-doc-diagram-assistant",
         name="生成文档图助手",
         instructions=[
