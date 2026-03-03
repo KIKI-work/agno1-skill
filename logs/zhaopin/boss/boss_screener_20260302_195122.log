@@ -1,0 +1,7 @@
+19:52:07 [诊断] 当前页面 URL: https://www.zhipin.com/web/chat/recommend
+19:52:07 [诊断] 页面 class 总数: 92
+19:52:07 [诊断] 候选卡片相关 class: ['menu-recommend', 'menu-geeksearch', 'menu-geek-manage', 'iboss-left', 'iboss-zhanghaoshezhi', 'iboss-qianbao', 'iboss-zhuomian', 'iboss-zuijiazhaopinguan', 'iboss-tuichudenglu']
+19:52:22 [错误] 未识别到候选人卡片。
+  当前 URL: https://www.zhipin.com/web/chat/recommend
+  候选 class: ['menu-recommend', 'menu-geeksearch', 'menu-geek-manage', 'iboss-left', 'iboss-zhanghaoshezhi', 'iboss-qianbao', 'iboss-zhuomian', 'iboss-zuijiazhaopinguan', 'iboss-tuichudenglu']
+  请确认：① 已在 BOSS 直聘「推荐牛人」页面（/web/chat/recommend）；② 页面已完全加载（有候选人卡片可见）

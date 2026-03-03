@@ -1,0 +1,77 @@
+{
+  "status": "running",
+  "stats": {
+    "total": 8,
+    "passed": 1,
+    "rejected_ai": 0,
+    "rejected_keyword": 0,
+    "skipped": 5,
+    "failed": 2
+  },
+  "results": [
+    {
+      "card_id": "1834d71f7dcd17ec0HB_3tm-FVVS",
+      "name": "包涵",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "0975ab2b0e7aba410X1829W5F1Q~",
+      "name": "雷书梦",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "e0604d838106e19e0nBz29m_EVNQ",
+      "name": "谢江彬",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "b5851343e428f0340XJy09m_GVBR",
+      "name": "秦权",
+      "action": "greeted",
+      "reason": "候选人本科毕业于东北大学（985院校），人工智能专业属于强势计算机理工背景，符合第一学历要求。年龄23岁，符合22-30岁的年龄要求。毕业年份为2025年，早于2027年，符合年限要求。专业为人工智能，符合专业不限的要求。",
+      "ai_result": {
+        "is_target": true,
+        "reason": "候选人本科毕业于东北大学（985院校），人工智能专业属于强势计算机理工背景，符合第一学历要求。年龄23岁，符合22-30岁的年龄要求。毕业年份为2025年，早于2027年，符合年限要求。专业为人工智能，符合专业不限的要求。",
+        "_parse_failed": false
+      }
+    },
+    {
+      "card_id": "26eb559d6c5ad51f0XNy2Ni8GVpT",
+      "name": "崔登鸿",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "3cb1f6d608dae8540HB_3tu0EVtZ",
+      "name": "吴镇宇",
+      "action": "failed",
+      "reason": "请求失败: timed out",
+      "ai_result": {
+        "is_target": false,
+        "reason": "请求失败: timed out",
+        "_parse_failed": true
+      }
+    },
+    {
+      "card_id": "0f1b61330ababe290n173N65EldS",
+      "name": "谢某",
+      "action": "failed",
+      "reason": "请求失败: timed out",
+      "ai_result": {
+        "is_target": false,
+        "reason": "请求失败: timed out",
+        "_parse_failed": true
+      }
+    },
+    {
+      "card_id": "ff6d86ea1fed6bcd0nxy2tq8EFJS",
+      "name": "张谭音",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    }
+  ],
+  "error": null
+}

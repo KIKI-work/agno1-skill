@@ -1,0 +1,13 @@
+{
+  "status": "interrupted",
+  "stats": {
+    "total": 0,
+    "passed": 0,
+    "rejected_ai": 0,
+    "rejected_keyword": 0,
+    "skipped": 0,
+    "failed": 0
+  },
+  "results": [],
+  "error": null
+}

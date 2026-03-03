@@ -1,32 +1,23 @@
-"""智联招聘简历筛流水线。
+"""BOSS 直聘简历筛流水线。
 
 流程：
 1. 连接已登录 Chrome（CDP attach 模式）
-2. 导航到智联招聘推荐人才列表页
-3. 获取当前页候选人卡片列表
-4. 逐一处理每个候选人：
-   a. 关键词预筛（可选，在 AI 前执行，速度快）
-   b. 打开简历详情弹窗，提取简历信息
-   c. 调用 AI（OpenAI 兼容协议）判断是否目标候选人
-   d. AI 通过 → 点击打招呼；拒绝 → 跳过
-   e. 关闭弹窗，随机等待（风控）
-5. 输出 JSON 报告（每个候选人的处理结果）
+2. 导航到 BOSS 直聘推荐牛人列表页（/web/chat/recommend）
+3. 获取候选人卡片列表
+4. 逐一处理：关键词预筛 → 提取卡片信息 → AI 筛选 → 立即沟通 / 跳过
+5. 滚动加载更多，直至无新候选人
+6. 输出 JSON 报告
+
+BOSS 直聘特点（与智联版的差异）：
+- 简历信息直接从卡片 DOM 提取，无需打开简历详情弹窗
+- 打招呼通过 mouseover 触发显示 → 点击 .btn-greet
+- 无需关闭弹窗（但 finally 仍调用 close_detail 清理可能出现的消息浮层）
 
 用法：
-    # 直接运行
-    python -m agno1.pipelines.zhaopin_resume_screener \\
-        --url "https://rd6.zhaopin.com/app/recommend?tab=recommend&jobNumber=<你的jobNumber>" \\
+    python -m agno1.pipelines.zhaopin.boss.boss_screener \\
+        --url "https://www.zhipin.com/web/chat/recommend" \\
         --ai-target "985/211本科、3年以上Python经验" \\
-        --max-greet 20
-
-    # dry-run（只提取信息，不打招呼）
-    python -m agno1.pipelines.zhaopin_resume_screener \\
-        --url "https://rd6.zhaopin.com/app/recommend?tab=recommend&jobNumber=<你的jobNumber>" \\
-        --ai-target "适合职位的候选人" \\
-        --dry-run
-
-参考来源：
-    F:/KIKI/代码库/chrome插件/HRchat/workspace/zhaopin-im-automation/zhaopin-resume-screener-skill.js
+        --exclude-keywords 教培 电气 嵌入式
 """
 
 from __future__ import annotations
@@ -36,32 +27,66 @@ import json
 import logging
 import os
 import random
+import subprocess
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-_REPO_ROOT = Path(__file__).resolve().parents[2]
+
+def _kill_stale_playwright() -> None:
+    """杀掉上次 Ctrl+C 留下的僵死 playwright driver 进程，防止下次启动卡住。
+
+    playwright Python 包在 Windows 上会启动一个名为 'playwright.exe'（或 node 内嵌驱动）
+    的后台 gRPC 进程。Ctrl+C 时若 bm.close() 未正常调用，该进程会变成孤儿，
+    导致下次 sync_playwright().start() 无限等待。
+    """
+    try:
+        # 尝试用 psutil（可选依赖），若没有则跳过
+        import psutil  # type: ignore
+        for proc in psutil.process_iter(["pid", "name", "cmdline"]):
+            try:
+                name = (proc.info.get("name") or "").lower()
+                cmdline = " ".join(proc.info.get("cmdline") or []).lower()
+                if "playwright" in name or ("playwright" in cmdline and "driver" in cmdline):
+                    proc.kill()
+            except Exception:
+                pass
+    except ImportError:
+        # psutil 不可用时，降级用 taskkill 按名称批量清理（Windows only）
+        try:
+            subprocess.run(
+                ["taskkill", "/F", "/IM", "playwright.exe"],
+                capture_output=True, timeout=5,
+            )
+        except Exception:
+            pass
+
+_REPO_ROOT = Path(__file__).resolve().parents[4]
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from agno1.browser_automation.manager import BrowserConfig, BrowserManager
 from agno1.browser_automation.utils import ensure_dir, normalize_cdp_endpoint
-from agno1.browser_automation.zhaopin_resume import (
+from agno1.browser_automation.zhaopin.boss.boss_resume import (
+    BossResumeAdapter,
     CardSummary,
     CandidateInfo,
     ScreenResult,
-    ZhaopinResumeAdapter,
+)
+from agno1.pipelines.zhaopin.notify import (
+    notify_ai_failure,
+    notify_all_complete,
+    notify_batch_complete,
 )
 
 
 # ---------------------------------------------------------------------------
-# AI 筛选（OpenAI 兼容协议）
+# AI 筛选（与智联招聘流水线完全相同，直接复用逻辑）
 # ---------------------------------------------------------------------------
 
 def _build_ai_prompt(info: CandidateInfo, target: str, intensity: str = "balanced") -> str:
-    """构建发给大模型的 Prompt。"""
     resume_text = "\n".join(filter(bool, [
         f"姓名：{info.name}",
         f"年龄：{info.age}" if info.age else "",
@@ -71,13 +96,11 @@ def _build_ai_prompt(info: CandidateInfo, target: str, intensity: str = "balance
         f"技能标签：{info.skills}" if info.skills else "",
         f"\n简历全文（摘要）：\n{info.full_text}" if info.full_text else "",
     ]))
-
     intensity_map = {
         "strict":   f"请根据以下简历信息判断是否明显适合[{target}]职位。只有当简历明显匹配时才推荐。",
         "balanced": f"请根据以下简历信息判断是否适合[{target}]职位。",
         "loose":    f"请根据以下简历信息判断是否可能适合[{target}]职位，可以适当放宽标准。",
     }
-
     prefix = intensity_map.get(intensity, intensity_map["balanced"])
     return (
         f"{prefix}\n"
@@ -96,15 +119,8 @@ def _call_ai(
     intensity: str = "balanced",
     max_tokens: int = 4000,
 ) -> Dict[str, Any]:
-    """
-    调用大模型 API 判断候选人是否符合目标。
-
-    Returns:
-        {"is_target": bool, "reason": str, "_parse_failed": bool}
-    """
     try:
         import urllib.request
-
         prompt = _build_ai_prompt(info, target=target, intensity=intensity)
         payload = json.dumps({
             "model": model,
@@ -112,86 +128,76 @@ def _call_ai(
             "temperature": 0.3,
             "max_tokens": max_tokens,
         }).encode("utf-8")
-
         req = urllib.request.Request(
             api_url,
             data=payload,
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {api_key}",
-            },
+            headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"},
             method="POST",
         )
         with urllib.request.urlopen(req, timeout=60) as resp:
             data = json.loads(resp.read().decode("utf-8"))
-
         content: str = data.get("choices", [{}])[0].get("message", {}).get("content", "")
         if not content.strip():
             return {"is_target": False, "reason": "AI 返回内容为空", "_parse_failed": True}
-
-        # 解析 JSON
         result = None
+        # 剥离 AI 可能返回的 markdown 代码块包裹（```json ... ``` 或 ``` ... ```）
+        import re
+        stripped = re.sub(r"^```(?:json)?\s*", "", content.strip(), flags=re.IGNORECASE)
+        stripped = re.sub(r"\s*```$", "", stripped.strip())
         try:
-            result = json.loads(content)
+            result = json.loads(stripped)
         except Exception:
-            import re
-            m = re.search(r"\{[\s\S]*\}", content)
+            # 再尝试从原始内容中提取第一个完整 JSON 对象
+            m = re.search(r"\{[\s\S]*\}", stripped)
             if m:
                 try:
                     result = json.loads(m.group(0))
                 except Exception:
                     pass
-
         if not result or not isinstance(result.get("is_target"), bool):
-            return {
-                "is_target": False,
-                "reason": f"格式异常: {content[:100]}",
-                "_parse_failed": True,
-            }
-
+            return {"is_target": False, "reason": f"格式异常: {content[:100]}", "_parse_failed": True}
         result["_parse_failed"] = False
         return result
-
     except Exception as e:
         return {"is_target": False, "reason": f"请求失败: {e}", "_parse_failed": True}
 
 
 # ---------------------------------------------------------------------------
-# 主流水线函数
+# 主流水线函数（TODO: BossResumeAdapter 实现后功能可用）
 # ---------------------------------------------------------------------------
 
 def run_screener(
     *,
-    url: str,
+    url: str = "https://www.zhipin.com/web/chat/recommend",
     ai_target: str,
     cdp_endpoint: str = "http://127.0.0.1:9222",
     ai_api_url: str = "http://127.0.0.1:33101/openai/v1/chat/completions",
     ai_api_key: str = "tencent-is-watching",
-    ai_model: str = "gpt-4o",
+    ai_model: str = "gemini-2.5-flash",
     ai_intensity: str = "balanced",
     ai_max_tokens: int = 4000,
     excluded_keywords: Optional[List[str]] = None,
     max_greet: int = 9999,
-    page_stay_time: str = "3-5",    # 每次处理间隔秒数范围 "min-max"
+    page_stay_time: str = "3-5",
     dry_run: bool = False,
-    out_dir: str = "artifacts/zhaopin_screener",
-    session_id: str = "zhaopin_screener",
+    out_dir: str = "artifacts/zhaopin/boss",
+    session_id: str = "boss_screener",
 ) -> Dict[str, Any]:
     """
-    执行智联招聘简历筛流水线。
+    执行 BOSS 直聘简历筛流水线。
 
     Args:
-        url:              智联招聘推荐人才列表页 URL
-        ai_target:        AI 筛选目标描述，例如"985/211本科、3年以上Java经验"
-        cdp_endpoint:     Chrome CDP 地址（需以 --remote-debugging-port=9222 启动 Chrome）
+        url:              BOSS 直聘推荐牛人列表页 URL（默认 /web/chat/recommend）
+        ai_target:        AI 筛选目标描述
+        cdp_endpoint:     Chrome CDP 地址
         ai_api_url:       AI API 地址（OpenAI 兼容协议）
         ai_api_key:       AI API Key
         ai_model:         模型名称
         ai_intensity:     筛选强度：strict | balanced | loose
         ai_max_tokens:    最大 token 数
-        excluded_keywords: 关键词排除列表（命中则跳过，不调用 AI）
-        max_greet:        最大打招呼数量（达到后停止）
-        page_stay_time:   每次处理间隔秒数范围，格式 "min-max"
+        excluded_keywords: 关键词排除列表
+        max_greet:        最大打招呼数量（默认不限）
+        page_stay_time:   每次处理间隔秒数范围（格式 "min-max"）
         dry_run:          仅提取信息，不点打招呼按钮
         out_dir:          输出目录（JSON 报告）
         session_id:       浏览器 session 标识
@@ -209,11 +215,10 @@ def run_screener(
     ensure_dir(out_dir)
     excluded_kw = [kw.lower() for kw in (excluded_keywords or [])]
 
-    # log 文件初始化
-    log_dir = str(_REPO_ROOT / "logs")
+    log_dir = str(_REPO_ROOT / "logs" / "zhaopin" / "boss")
     ensure_dir(log_dir)
     run_ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_path = str(Path(log_dir) / f"zhaopin_screener_{run_ts}.log")
+    log_path = str(Path(log_dir) / f"boss_screener_{run_ts}.log")
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(message)s",
@@ -224,9 +229,8 @@ def run_screener(
         ],
         force=True,
     )
-    log = logging.getLogger("screener")
+    log = logging.getLogger("boss_screener")
 
-    # 解析间隔范围
     try:
         stay_min, stay_max = [int(x) for x in page_stay_time.split("-")]
     except Exception:
@@ -238,6 +242,20 @@ def run_screener(
     }
     results: List[Dict[str, Any]] = []
 
+    # JSON 报告路径提前确定，运行中实时写入，Ctrl+C 也能保留进度
+    report_path = str(Path(out_dir) / f"boss_screener_{run_ts}.json")
+
+    def _flush(status: str = "running") -> None:
+        """将当前 results/stats 实时写出到 JSON 文件。"""
+        try:
+            with open(report_path, "w", encoding="utf-8") as _f:
+                json.dump(
+                    {"status": status, "stats": stats, "results": results, "error": None},
+                    _f, ensure_ascii=False, indent=2,
+                )
+        except Exception as _e:
+            log.info(f"[警告] JSON 实时写入失败: {_e}")
+
     browser_config = BrowserConfig(
         mode="attach",
         cdp_endpoint=normalize_cdp_endpoint(cdp_endpoint),
@@ -247,25 +265,67 @@ def run_screener(
     )
     bm = BrowserManager(browser_config)
     bm.start()
-    adapter = ZhaopinResumeAdapter(browser=bm)
+    adapter = BossResumeAdapter(browser=bm)
     last_captured_name: Optional[str] = None
 
     try:
         page = adapter.get_page(session_id=session_id, url=url)
-        time.sleep(2.0)
+        log.info(f"[boss] 已连接页面，URL: {page.url}")
+        time.sleep(2.0)  # 等待 iframe 内容完全加载
+
+        # ── 诊断：输出当前页面 URL 及 DOM class 快照 ──────────────────
+        # 注意：诊断在 get_candidate_cards 之前执行，get_candidate_cards
+        # 内部会调用 _wait_for_cards 等待卡片渲染完成
+        current_url = page.url
+        log.info(f"[诊断] 当前页面 URL: {current_url}")
+        log.info(f"[诊断] 页面 frames 数量: {len(page.frames)}")
+        for i, f in enumerate(page.frames):
+            try:
+                log.info(f"[诊断]   frame[{i}] url={f.url}")
+            except Exception:
+                pass
 
         cards: List[CardSummary] = adapter.get_candidate_cards(page)
+
+        # 卡片等待完成后再采集 class 快照（在包含卡片的 frame 里）
+        content_frame = adapter._get_content_frame(page)
+        dom_diag: dict = content_frame.evaluate("""
+        () => {
+            const allClasses = new Set();
+            document.querySelectorAll('body *').forEach(el => {
+                if (el.className && typeof el.className === 'string') {
+                    el.className.split(' ').forEach(c => { if (c) allClasses.add(c); });
+                }
+            });
+            const cardRelated = Array.from(allClasses).filter(c =>
+                /card|geek|candidate|job|recommend|boss/i.test(c)
+            ).slice(0, 80);
+            return { total: allClasses.size, card_related: cardRelated };
+        }
+        """)
+        log.info(f"[诊断] 内容 frame URL: {content_frame.url}")
+        log.info(f"[诊断] 页面 class 总数: {dom_diag.get('total', '?')}")
+        log.info(f"[诊断] 候选卡片相关 class: {dom_diag.get('card_related', [])}")
         if not cards:
+            diag_msg = (
+                f"未识别到候选人卡片。\n"
+                f"  当前 URL: {current_url}\n"
+                f"  候选 class: {dom_diag.get('card_related', [])}\n"
+                f"  页面 class 总数: {dom_diag.get('total', '?')}\n"
+                f"  请确认：① 已在 BOSS 直聘「推荐牛人」页面（/web/chat/recommend）"
+                f"；② 页面已完全加载（有候选人卡片可见）"
+            )
+            log.info(f"[错误] {diag_msg}")
             return {
                 "status": "error",
                 "stats": stats,
                 "results": results,
                 "report_path": None,
                 "log_path": None,
-                "error": "未识别到候选人卡片，请确认已在「推荐人才」列表页",
+                "error": diag_msg,
             }
 
-        processed_ids: set[str] = set()   # 已处理的 card_id，用于去重
+        processed_ids: set[str] = set()
         batch = 0
 
         while cards:
@@ -277,7 +337,6 @@ def run_screener(
                 stats["total"] += 1
                 log.info(f"[总第 {stats['total']} 张] 处理: {card.name}")
 
-                # ── 风控：随机跳过（概率 10%，模拟人工浏览行为）────────
                 if random.random() < 0.10:
                     log.info(f"  → [风控] 随机跳过")
                     stats["skipped"] += 1
@@ -285,6 +344,7 @@ def run_screener(
                         "card_id": card.card_id, "name": card.name,
                         "action": "skipped", "reason": "风控随机跳过",
                     })
+                    _flush()
                     continue
 
                 detail_opened = False
@@ -302,18 +362,24 @@ def run_screener(
                                 "reason": f"卡片摘要命中关键词: 「{hit_kw}」",
                                 "hit_keyword": hit_kw,
                             })
+                            _flush()
                             continue
 
-                    # ── 步骤 2：打开弹窗并提取简历 ──────────────────
-                    info = adapter.open_detail_and_extract(page, card, last_captured_name=last_captured_name)
+                    # ── 步骤 2：打开弹窗并提取简历（弹窗保持打开）──────
+                    info = adapter.open_detail_and_extract(
+                        page, card,
+                        last_captured_name=last_captured_name,
+                        keep_open=True,   # 弹窗保持打开，AI 分析完再关闭
+                    )
                     detail_opened = True
 
-                    # 全文关键词预筛（弹窗内容更丰富）
                     if excluded_kw:
                         full_text_lower = (info.full_text or "").lower()
                         hit_kw = next((kw for kw in excluded_kw if kw in full_text_lower), None)
                         if hit_kw:
                             log.info(f"  → [关键词排除] 命中关键词: 「{hit_kw}」（简历全文）")
+                            # 关键词命中：先关弹窗再 continue
+                            adapter.close_detail(page)
                             stats["rejected_keyword"] += 1
                             results.append({
                                 "card_id": card.card_id, "name": info.name,
@@ -321,9 +387,10 @@ def run_screener(
                                 "reason": f"简历全文命中关键词: 「{hit_kw}」",
                                 "hit_keyword": hit_kw,
                             })
+                            _flush()
                             continue
 
-                    # ── 步骤 3：AI 筛选 ──────────────────────────────
+                    # ── 步骤 3：AI 筛选（简历弹窗仍然打开中）───────────
                     _ai_prompt = _build_ai_prompt(info, target=ai_target, intensity=ai_intensity)
                     log.info(f"  → [AI Prompt]\n{'─'*60}\n{_ai_prompt}\n{'─'*60}")
                     ai_result = _call_ai(
@@ -339,7 +406,11 @@ def run_screener(
                     if info.name and info.name != "未知候选人" and not info.is_fallback:
                         last_captured_name = info.name
 
-                    # ── 步骤 4：根据 AI 结果执行动作 ─────────────────
+                    # ── 步骤 4：AI 出结果后关闭弹窗 ──────────────────
+                    adapter.close_detail(page)
+                    time.sleep(0.5)
+
+                    # ── 步骤 5：根据 AI 结果执行动作 ─────────────────
                     if ai_result["_parse_failed"]:
                         log.info(f"  → AI 调用失败: {ai_result['reason']}")
                         stats["failed"] += 1
@@ -348,12 +419,15 @@ def run_screener(
                             "action": "failed", "reason": ai_result["reason"],
                             "ai_result": ai_result,
                         })
+                        _flush()
+                        notify_ai_failure("BOSS直聘", info.name, ai_result["reason"])
 
                     elif ai_result["is_target"]:
                         log.info(f"  → AI 通过: {ai_result['reason']}")
                         if not dry_run:
-                            adapter.click_greet_button(page)
-                            log.info(f"  → 已打招呼")
+                            # BOSS 版需传入 card 以定位打招呼按钮
+                            adapter.click_greet_button(page, card)
+                            log.info(f"  → 已打招呼（立即沟通）")
                         else:
                             log.info(f"  → [dry-run] 跳过打招呼")
                         stats["passed"] += 1
@@ -363,6 +437,7 @@ def run_screener(
                             "reason": ai_result["reason"],
                             "ai_result": ai_result,
                         })
+                        _flush()
 
                     else:
                         log.info(f"  → AI 未通过: {ai_result['reason']}")
@@ -372,6 +447,7 @@ def run_screener(
                             "action": "rejected_ai", "reason": ai_result["reason"],
                             "ai_result": ai_result,
                         })
+                        _flush()
 
                 except Exception as e:
                     log.info(f"  → 处理失败: {e}")
@@ -380,48 +456,39 @@ def run_screener(
                         "card_id": card.card_id, "name": card.name,
                         "action": "failed", "reason": str(e),
                     })
+                    _flush()
 
                 finally:
-                    # 确保弹窗总是被关闭
                     if detail_opened:
                         try:
+                            # 兜底：若步骤中途异常（如关键词 continue、AI 失败）导致弹窗未关，
+                            # 此处确保关闭，同时清理打招呼后可能残留的浮层
                             adapter.close_detail(page)
                         except Exception as e:
-                            log.info(f"  → 关闭弹窗失败: {e}")
+                            log.info(f"  → 清理残留浮层失败: {e}")
 
-                # ── 风控：随机休眠 ────────────────────────────────────
                 sleep_s = random.randint(stay_min, stay_max)
                 log.info(f"  → 等待 {sleep_s} 秒...")
                 time.sleep(sleep_s)
 
-            # ── 当前批次处理完，滚动加载下一批 ──────────────────────
             log.info(f"── 第 {batch} 批处理完，滚动加载更多候选人...")
+            notify_batch_complete("BOSS直聘", stats, batch)
             cards = adapter.scroll_and_get_new_cards(page, processed_ids)
             if not cards:
                 log.info("── 已滚动到底，没有新候选人，筛选结束")
 
     finally:
         bm.close()
+        # Ctrl+C 或任何异常退出时，确保最终状态写入 JSON
+        _flush("interrupted")
 
-    # 写出 JSON 报告
-    report = {
-        "status": "complete",
-        "stats": stats,
-        "results": results,
-        "error": None,
-    }
-    report_path = str(Path(out_dir) / f"screener_report_{run_ts}.json")
-    with open(report_path, "w", encoding="utf-8") as f:
-        json.dump(report, f, ensure_ascii=False, indent=2)
-
-    report["report_path"] = report_path
-    report["log_path"] = log_path
+    # 正常完成：以 complete 状态覆盖写一次
+    _flush("complete")
+    notify_all_complete("BOSS直聘", stats)
 
     # 运行结束统计摘要
     rejected = stats["rejected_ai"]
     rej_kw = stats["rejected_keyword"]
-
-    # 汇总被哪些关键词排除过（去重，保留顺序）
     kw_hits: List[str] = []
     seen_kw: set[str] = set()
     for r in results:
@@ -434,10 +501,10 @@ def run_screener(
 
     summary = (
         f"\n{'═'*60}\n"
-        f"  本次筛选完成\n"
+        f"  本次筛选完成（BOSS 直聘）\n"
         f"{'─'*60}\n"
         f"  筛选总数：{stats['total']}\n"
-        f"  通过（已打招呼）：{stats['passed']}\n"
+        f"  通过（已立即沟通）：{stats['passed']}\n"
         f"  未通过（AI拒绝）：{rejected}\n"
         f"  未通过（关键词排除）：{rej_kw}  命中关键词：{kw_summary}\n"
         f"  跳过（风控随机）：{stats['skipped']}\n"
@@ -451,7 +518,14 @@ def run_screener(
         f"{'═'*60}"
     )
     log.info(summary)
-    return report
+    return {
+        "status": "complete",
+        "stats": stats,
+        "results": results,
+        "report_path": report_path,
+        "log_path": log_path,
+        "error": None,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -459,8 +533,9 @@ def run_screener(
 # ---------------------------------------------------------------------------
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="智联招聘简历筛流水线")
-    ap.add_argument("--url", required=True, help="推荐人才列表页 URL")
+    ap = argparse.ArgumentParser(description="BOSS 直聘简历筛流水线")
+    ap.add_argument("--url", default="https://www.zhipin.com/web/chat/recommend",
+                    help="推荐牛人列表页 URL，默认 https://www.zhipin.com/web/chat/recommend")
     ap.add_argument("--ai-target", required=True, help="AI 筛选目标描述")
     ap.add_argument("--cdp", default=None, help="Chrome CDP 地址，默认 http://127.0.0.1:9222")
     ap.add_argument("--ai-url", default=None, help="AI API 地址（OpenAI 兼容）")
@@ -469,15 +544,18 @@ def main() -> int:
     ap.add_argument("--ai-intensity", default="balanced", choices=["strict", "balanced", "loose"])
     ap.add_argument("--ai-max-tokens", type=int, default=4000)
     ap.add_argument("--exclude-keywords", nargs="+", default=None, help="关键词排除列表")
-    ap.add_argument("--max-greet", type=int, default=9999, help="最大打招呼数量上限（默认不限制，处理完当前页所有候选人为止）")
-    ap.add_argument("--page-stay-time", default="3-5", help="每次处理间隔秒数范围，格式 min-max")
-    ap.add_argument("--dry-run", action="store_true", help="仅提取信息，不执行打招呼")
-    ap.add_argument("--out-dir", default=None, help="输出目录")
-    ap.add_argument("--session-id", default="zhaopin_screener")
+    ap.add_argument("--max-greet", type=int, default=9999)
+    ap.add_argument("--page-stay-time", default="3-5")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--out-dir", default=None)
+    ap.add_argument("--session-id", default="boss_screener")
     args = ap.parse_args()
 
+    # 清理上次 Ctrl+C 可能留下的僵死 playwright driver 进程
+    _kill_stale_playwright()
+
     out_dir = ensure_dir(os.path.abspath(
-        args.out_dir or str(_REPO_ROOT / "artifacts" / "zhaopin_screener")
+        args.out_dir or str(_REPO_ROOT / "artifacts" / "zhaopin" / "boss")
     ))
 
     result = run_screener(
@@ -488,7 +566,7 @@ def main() -> int:
         ),
         ai_api_url=args.ai_url or os.getenv("AI_API_URL") or "http://127.0.0.1:33101/openai/v1/chat/completions",
         ai_api_key=args.ai_key or os.getenv("AI_API_KEY") or "tencent-is-watching",
-        ai_model=args.ai_model or os.getenv("AI_MODEL") or "gpt-4o",
+        ai_model=args.ai_model or os.getenv("AI_MODEL") or "gemini-2.5-flash",
         ai_intensity=args.ai_intensity,
         ai_max_tokens=args.ai_max_tokens,
         excluded_keywords=args.exclude_keywords,

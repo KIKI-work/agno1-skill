@@ -11,7 +11,7 @@
 DOM 操作策略：
 - 优先通过 page.evaluate() 注入 JS 直接操作页面 DOM（与插件 content script 逻辑等价）
 - Playwright 负责 CDP 连接、页面导航、等待条件，不做复杂的多步 locator 链
-- 关键选择器统一维护在 selectors.py ZHAOPIN_RESUME_SELECTORS
+- 关键选择器统一维护在 zhilian_selectors.py ZHILIAN_RESUME_SELECTORS
 
 参考来源：
 - F:/KIKI/代码库/chrome插件/HRchat/workspace/zhaopin-im-automation/zhaopin-resume-screener-skill.js
@@ -26,8 +26,8 @@ from typing import Any, Dict, List, Optional
 
 from playwright.sync_api import Page
 
-from .manager import BrowserManager
-from .selectors import ZHAOPIN_RESUME_SELECTORS
+from agno1.browser_automation.manager import BrowserManager
+from agno1.browser_automation.zhaopin.zhilian.zhilian_selectors import ZHILIAN_RESUME_SELECTORS
 
 
 # ---------------------------------------------------------------------------
@@ -75,14 +75,14 @@ class ScreenResult:
 # 智联招聘简历筛适配器
 # ---------------------------------------------------------------------------
 
-class ZhaopinResumeAdapter:
+class ZhilianResumeAdapter:
     """
     智联招聘推荐候选人简历筛适配器。
 
     使用方式：
-        adapter = ZhaopinResumeAdapter(browser=bm)
+        adapter = ZhilianResumeAdapter(browser=bm)
         # 在已导航到智联招聘推荐人才页面的 Page 上执行
-        page = adapter.get_page(session_id="zhaopin_screener", url=url)
+        page = adapter.get_page(session_id="zhilian_screener", url=url)
         cards = adapter.get_candidate_cards(page)
         for card in cards:
             detail = adapter.open_detail_and_extract(page, card)
@@ -92,11 +92,11 @@ class ZhaopinResumeAdapter:
             adapter.close_detail(page)
     """
 
-    PLATFORM = "zhaopin"
+    PLATFORM = "zhilian"
 
     def __init__(self, *, browser: BrowserManager):
         self._browser = browser
-        self._sel = ZHAOPIN_RESUME_SELECTORS
+        self._sel = ZHILIAN_RESUME_SELECTORS
 
     # ------------------------------------------------------------------
     # 页面准备
@@ -147,7 +147,7 @@ class ZhaopinResumeAdapter:
                 document.querySelectorAll(TAG_SELECTOR).forEach(tagCard);
             });
             observer.observe(document.body, { childList: true, subtree: true });
-            console.log('[zhaopin-py] 早期观察器注入完成');
+            console.log('[zhilian-py] 早期观察器注入完成');
         }
         """)
 
@@ -207,7 +207,7 @@ class ZhaopinResumeAdapter:
                 usedIds.add(id);
             });
 
-            console.log(`[zhaopin-py] 共发现 ${candidates.length} 个候选人`);
+            console.log(`[zhilian-py] 共发现 ${candidates.length} 个候选人`);
             return candidates;
         }
         """)
@@ -304,7 +304,7 @@ class ZhaopinResumeAdapter:
             ({cid, name}) => {
                 const targets = document.querySelectorAll(`[data-demo-cid="${cid}"]`);
                 if (targets.length === 0) {
-                    console.error(`[zhaopin-py] 未找到卡片: ${name}`);
+                    console.error(`[zhilian-py] 未找到卡片: ${name}`);
                     return false;
                 }
 
@@ -322,7 +322,7 @@ class ZhaopinResumeAdapter:
 
                 try {
                     clickTarget.click();
-                    console.log(`[zhaopin-py] 点击候选人: ${name}`);
+                    console.log(`[zhilian-py] 点击候选人: ${name}`);
                     return true;
                 } catch (e) {
                     const rect = clickTarget.getBoundingClientRect();
@@ -337,7 +337,7 @@ class ZhaopinResumeAdapter:
                             }));
                         }, i * 80);
                     });
-                    console.log(`[zhaopin-py] 增强点击: ${name}`);
+                    console.log(`[zhilian-py] 增强点击: ${name}`);
                     return true;
                 }
             }
@@ -345,7 +345,7 @@ class ZhaopinResumeAdapter:
             {"cid": card.card_id, "name": card.name},
         )
         if not success:
-            raise RuntimeError(f"[zhaopin] 未找到候选人卡片: {card.name} (id={card.card_id})")
+            raise RuntimeError(f"[zhilian] 未找到候选人卡片: {card.name} (id={card.card_id})")
 
     def wait_for_greet_button(self, page: Page, timeout_ms: int = 10_000) -> bool:
         """
@@ -424,7 +424,7 @@ class ZhaopinResumeAdapter:
                         const changed = lastName && currentName && currentName !== lastName;
 
                         if ((currentName && (isFirst || changed)) || attempts >= max) {
-                            if (attempts >= max) console.warn('[zhaopin-py] 提取超时，返回兜底数据');
+                            if (attempts >= max) console.warn('[zhilian-py] 提取超时，返回兜底数据');
                             resolve(extract(modal, currentName));
                         } else {
                             setTimeout(tryExtract, 200);
@@ -537,7 +537,7 @@ class ZhaopinResumeAdapter:
             setTimeout(() => {
                 btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
                 btn.click();
-                console.log('[zhaopin-py] 打招呼按钮点击成功');
+                console.log('[zhilian-py] 打招呼按钮点击成功');
             }, 500);
         }
         """)
@@ -605,7 +605,7 @@ class ZhaopinResumeAdapter:
 
         btn_found = self.wait_for_greet_button(page, timeout_ms=greet_wait_timeout_ms)
         if not btn_found:
-            raise RuntimeError(f"[zhaopin] 打招呼按钮未出现（{card.name}），弹窗可能未正常打开")
+            raise RuntimeError(f"[zhilian] 打招呼按钮未出现（{card.name}），弹窗可能未正常打开")
 
         info = self.extract_resume_info(page, last_captured_name=last_captured_name)
         info.index = card.index
@@ -614,7 +614,7 @@ class ZhaopinResumeAdapter:
 
 
 __all__ = [
-    "ZhaopinResumeAdapter",
+    "ZhilianResumeAdapter",
     "CandidateInfo",
     "CardSummary",
     "ScreenResult",
