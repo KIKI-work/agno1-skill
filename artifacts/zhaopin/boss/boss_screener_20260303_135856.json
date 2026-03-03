@@ -1,0 +1,27 @@
+{
+  "status": "interrupted",
+  "stats": {
+    "total": 2,
+    "passed": 0,
+    "rejected_ai": 0,
+    "rejected_keyword": 0,
+    "skipped": 0,
+    "failed": 1
+  },
+  "results": [
+    {
+      "card_id": "8acd452ec87334130nNy2NS4ElBV",
+      "name": "徐晗烟",
+      "action": "failed",
+      "reason": "请求失败: timed out",
+      "ai_result": {
+        "is_target": false,
+        "reason": "请求失败: timed out",
+        "_parse_failed": true,
+        "raw_content": "",
+        "finish_reason": ""
+      }
+    }
+  ],
+  "error": null
+}

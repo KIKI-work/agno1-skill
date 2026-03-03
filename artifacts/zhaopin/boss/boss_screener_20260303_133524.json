@@ -1,0 +1,53 @@
+{
+  "status": "running",
+  "stats": {
+    "total": 4,
+    "passed": 0,
+    "rejected_ai": 0,
+    "rejected_keyword": 1,
+    "skipped": 1,
+    "failed": 2
+  },
+  "results": [
+    {
+      "card_id": "8acd452ec87334130nNy2NS4ElBV",
+      "name": "徐晗烟",
+      "action": "failed",
+      "reason": "请求失败: timed out",
+      "ai_result": {
+        "is_target": false,
+        "reason": "请求失败: timed out",
+        "_parse_failed": true,
+        "raw_content": "",
+        "finish_reason": ""
+      }
+    },
+    {
+      "card_id": "34b8f42849f03b350nN92t64FVZQ",
+      "name": "胡文斐",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "c416b73f21f62a5a0nZ929q7FVJX",
+      "name": "肖茹杰",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「银行」",
+      "hit_keyword": "银行"
+    },
+    {
+      "card_id": "636523b0e59c3b460nF63dq9FVFR",
+      "name": "廖宁夏",
+      "action": "failed",
+      "reason": "请求失败: timed out",
+      "ai_result": {
+        "is_target": false,
+        "reason": "请求失败: timed out",
+        "_parse_failed": true,
+        "raw_content": "",
+        "finish_reason": ""
+      }
+    }
+  ],
+  "error": null
+}

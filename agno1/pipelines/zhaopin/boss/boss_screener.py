@@ -117,7 +117,7 @@ def _call_ai(
     model: str,
     target: str,
     intensity: str = "balanced",
-    max_tokens: int = 4000,
+    max_tokens: int = 7000,
 ) -> Dict[str, Any]:
     try:
         import urllib.request
@@ -127,6 +127,7 @@ def _call_ai(
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.3,
             "max_tokens": max_tokens,
+            "stream": False,
         }).encode("utf-8")
         req = urllib.request.Request(
             api_url,
@@ -134,11 +135,12 @@ def _call_ai(
             headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"},
             method="POST",
         )
-        with urllib.request.urlopen(req, timeout=60) as resp:
+        with urllib.request.urlopen(req, timeout=120) as resp:
             data = json.loads(resp.read().decode("utf-8"))
         content: str = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        finish_reason: str = data.get("choices", [{}])[0].get("finish_reason", "")
         if not content.strip():
-            return {"is_target": False, "reason": "AI 返回内容为空", "_parse_failed": True}
+            return {"is_target": False, "reason": "AI 返回内容为空", "_parse_failed": True, "raw_content": "", "finish_reason": finish_reason}
         result = None
         # 剥离 AI 可能返回的 markdown 代码块包裹（```json ... ``` 或 ``` ... ```）
         import re
@@ -155,11 +157,14 @@ def _call_ai(
                 except Exception:
                     pass
         if not result or not isinstance(result.get("is_target"), bool):
-            return {"is_target": False, "reason": f"格式异常: {content[:100]}", "_parse_failed": True}
+            _trunc = "[输出被截断] " if finish_reason == "length" else ""
+            return {"is_target": False, "reason": f"{_trunc}格式异常（无法解析为 JSON）", "_parse_failed": True, "raw_content": content, "finish_reason": finish_reason}
         result["_parse_failed"] = False
+        result["raw_content"] = content
+        result["finish_reason"] = finish_reason
         return result
     except Exception as e:
-        return {"is_target": False, "reason": f"请求失败: {e}", "_parse_failed": True}
+        return {"is_target": False, "reason": f"请求失败: {e}", "_parse_failed": True, "raw_content": "", "finish_reason": ""}
 
 
 # ---------------------------------------------------------------------------
@@ -175,7 +180,7 @@ def run_screener(
     ai_api_key: str = "tencent-is-watching",
     ai_model: str = "gemini-2.5-flash",
     ai_intensity: str = "balanced",
-    ai_max_tokens: int = 4000,
+    ai_max_tokens: int = 7000,
     excluded_keywords: Optional[List[str]] = None,
     max_greet: int = 9999,
     page_stay_time: str = "3-5",
@@ -402,6 +407,10 @@ def run_screener(
                         intensity=ai_intensity,
                         max_tokens=ai_max_tokens,
                     )
+                    _raw = ai_result.get("raw_content", "")
+                    _finish = ai_result.get("finish_reason", "")
+                    _truncated = "[警告：输出被截断 finish_reason=length] " if _finish == "length" else ""
+                    log.info(f"  → [AI 原始回答] {_truncated}\n{'─'*60}\n{_raw}\n{'─'*60}")
 
                     if info.name and info.name != "未知候选人" and not info.is_fallback:
                         last_captured_name = info.name
@@ -412,7 +421,13 @@ def run_screener(
 
                     # ── 步骤 5：根据 AI 结果执行动作 ─────────────────
                     if ai_result["_parse_failed"]:
-                        log.info(f"  → AI 调用失败: {ai_result['reason']}")
+                        _raw_fail = ai_result.get("raw_content", "")
+                        _fin_fail = ai_result.get("finish_reason", "")
+                        _trunc_warn = " [输出被截断 finish_reason=length]" if _fin_fail == "length" else ""
+                        log.info(
+                            f"  → AI 调用失败: {ai_result['reason']}{_trunc_warn}\n"
+                            f"  → [AI 原始回答（失败）]\n{'─'*60}\n{_raw_fail}\n{'─'*60}"
+                        )
                         stats["failed"] += 1
                         results.append({
                             "card_id": card.card_id, "name": info.name,
@@ -542,7 +557,7 @@ def main() -> int:
     ap.add_argument("--ai-key", default=None, help="AI API Key")
     ap.add_argument("--ai-model", default=None, help="模型名称")
     ap.add_argument("--ai-intensity", default="balanced", choices=["strict", "balanced", "loose"])
-    ap.add_argument("--ai-max-tokens", type=int, default=4000)
+    ap.add_argument("--ai-max-tokens", type=int, default=7000)
     ap.add_argument("--exclude-keywords", nargs="+", default=None, help="关键词排除列表")
     ap.add_argument("--max-greet", type=int, default=9999)
     ap.add_argument("--page-stay-time", default="3-5")

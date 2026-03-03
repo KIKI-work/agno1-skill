@@ -1,0 +1,33 @@
+{
+  "status": "interrupted",
+  "stats": {
+    "total": 3,
+    "passed": 0,
+    "rejected_ai": 0,
+    "rejected_keyword": 0,
+    "skipped": 1,
+    "failed": 1
+  },
+  "results": [
+    {
+      "card_id": "list_candidate_0_1",
+      "name": "马女士",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "list_candidate_1_1",
+      "name": "王先生\n    10小时前在线",
+      "action": "failed",
+      "reason": "格式异常（无法解析为 JSON）",
+      "ai_result": {
+        "is_target": false,
+        "reason": "格式异常（无法解析为 JSON）",
+        "_parse_failed": true,
+        "raw_content": "（强势理工科），符合学历要求（根据备注，无本科信息时以硕士信息为准）。年龄24岁在22-30岁范围内，且硕士毕业时间为2026年6月，不属于2027年及之后的应届生。专业为计算机科学与技术，符合专业不限的要求。期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    }
+  ],
+  "error": null
+}

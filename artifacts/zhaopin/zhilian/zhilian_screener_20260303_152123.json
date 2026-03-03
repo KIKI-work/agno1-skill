@@ -1,0 +1,209 @@
+{
+  "status": "complete",
+  "stats": {
+    "total": 22,
+    "passed": 3,
+    "rejected_ai": 3,
+    "rejected_keyword": 14,
+    "skipped": 1,
+    "failed": 1
+  },
+  "results": [
+    {
+      "card_id": "list_candidate_0",
+      "name": "熊先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "reason": "期望地点不符合要求，候选人期望地点为上海，而职位要求期望地点为重庆。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "期望地点不符合要求，候选人期望地点为上海，而职位要求期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"期望地点不符合要求，候选人期望地点为上海，而职位要求期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "list_candidate_1",
+      "name": "张女士",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "list_candidate_2",
+      "name": "蒋女士\n    48小时前在线",
+      "action": "rejected_ai",
+      "reason": "不符合要求。原因：1. 第一学历（本科）院校重庆邮电大学非985/211院校。2. 硕士毕业时间为2028年，属于2027年及之后的应届生，不符合年限要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "不符合要求。原因：1. 第一学历（本科）院校重庆邮电大学非985/211院校。2. 硕士毕业时间为2028年，属于2027年及之后的应届生，不符合年限要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"不符合要求。原因：1. 第一学历（本科）院校重庆邮电大学非985/211院校。2. 硕士毕业时间为2028年，属于2027年及之后的应届生，不符合年限要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "list_candidate_3",
+      "name": "余先生\n    48小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "list_candidate_4",
+      "name": "刘先生\n    2小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「材料科学」",
+      "hit_keyword": "材料科学"
+    },
+    {
+      "card_id": "list_candidate_5",
+      "name": "唐先生\n    5天前在线",
+      "action": "greeted",
+      "reason": "所有条件均符合。第一学历为清华大学计算机应用技术（985院校且为强势计算机理工背景），年龄26岁在要求范围内且非应届生，期望地点为重庆。",
+      "ai_result": {
+        "is_target": true,
+        "reason": "所有条件均符合。第一学历为清华大学计算机应用技术（985院校且为强势计算机理工背景），年龄26岁在要求范围内且非应届生，期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"所有条件均符合。第一学历为清华大学计算机应用技术（985院校且为强势计算机理工背景），年龄26岁在要求范围内且非应届生，期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "list_candidate_6",
+      "name": "蒋先生\n    3小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「材料科学」",
+      "hit_keyword": "材料科学"
+    },
+    {
+      "card_id": "list_candidate_7",
+      "name": "王先生\n    11天前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "list_candidate_8",
+      "name": "蒋先生\n    一周前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "list_candidate_9",
+      "name": "贺先生\n    5小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "list_candidate_10",
+      "name": "程先生\n    1小时前有回复",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "list_candidate_11",
+      "name": "刘女士\n    1小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「工艺工程」",
+      "hit_keyword": "工艺工程"
+    },
+    {
+      "card_id": "list_candidate_12",
+      "name": "袁女士\n    48小时前在线",
+      "action": "rejected_ai",
+      "reason": "第一学历非985/211院校。简历中本科学校为江苏大学，不符合第一学历为985/211院校的要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历非985/211院校。简历中本科学校为江苏大学，不符合第一学历为985/211院校的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历非985/211院校。简历中本科学校为江苏大学，不符合第一学历为985/211院校的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "list_candidate_13",
+      "name": "丁先生\n    10小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「芯片测试」",
+      "hit_keyword": "芯片测试"
+    },
+    {
+      "card_id": "list_candidate_14",
+      "name": "周先生\n    23天前有回复",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「工艺工程」",
+      "hit_keyword": "工艺工程"
+    },
+    {
+      "card_id": "list_candidate_15",
+      "name": "李女士\n    10天前在线",
+      "action": "greeted",
+      "reason": "所有条件均符合。\n1. **第一学历要求：** 简历中未提供本科学校信息，但硕士学校为厦门大学（985院校）。根据规则“如果没有本科学校信息，只有硕士学校信息，且硕士学校符合要求，返回为true”，此项符合。\n2. **年限要求：** 年龄29岁，在22-30岁范围内，且有工作经验（5年），非27年及之后的应届生，此项符合。\n3. **专业要求：** 专业不限，化学工程与工艺专业符合要求。\n4. **地点要求：** 期望地点为重庆，符合要求。",
+      "ai_result": {
+        "is_target": true,
+        "reason": "所有条件均符合。\n1. **第一学历要求：** 简历中未提供本科学校信息，但硕士学校为厦门大学（985院校）。根据规则“如果没有本科学校信息，只有硕士学校信息，且硕士学校符合要求，返回为true”，此项符合。\n2. **年限要求：** 年龄29岁，在22-30岁范围内，且有工作经验（5年），非27年及之后的应届生，此项符合。\n3. **专业要求：** 专业不限，化学工程与工艺专业符合要求。\n4. **地点要求：** 期望地点为重庆，符合要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"所有条件均符合。\\n1. **第一学历要求：** 简历中未提供本科学校信息，但硕士学校为厦门大学（985院校）。根据规则“如果没有本科学校信息，只有硕士学校信息，且硕士学校符合要求，返回为true”，此项符合。\\n2. **年限要求：** 年龄29岁，在22-30岁范围内，且有工作经验（5年），非27年及之后的应届生，此项符合。\\n3. **专业要求：** 专业不限，化学工程与工艺专业符合要求。\\n4. **地点要求：** 期望地点为重庆，符合要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "list_candidate_16",
+      "name": "张先生\n    4小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「材料科学」",
+      "hit_keyword": "材料科学"
+    },
+    {
+      "card_id": "list_candidate_17",
+      "name": "刘先生\n    1小时前浏览过职位",
+      "action": "failed",
+      "reason": "格式异常（无法解析为 JSON）",
+      "ai_result": {
+        "is_target": false,
+        "reason": "格式异常（无法解析为 JSON）",
+        "_parse_failed": true,
+        "raw_content": "范围内，专业不限，期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "list_candidate_18",
+      "name": "邓先生\n    2小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「芯片测试」",
+      "hit_keyword": "芯片测试"
+    },
+    {
+      "card_id": "list_candidate_19",
+      "name": "王先生\n    6小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "list_candidate_20",
+      "name": "覃先生\n    48小时前在线",
+      "action": "greeted",
+      "reason": "该候选人符合所有要求：本科和硕士均毕业于985院校东北大学，且非排除类型；年龄25岁，在22-30岁范围内；硕士毕业年份为2026年，未排除27年及之后的应届生；专业为理工科，符合专业不限要求；期望地点为重庆，符合地点要求。",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求：本科和硕士均毕业于985院校东北大学，且非排除类型；年龄25岁，在22-30岁范围内；硕士毕业年份为2026年，未排除27年及之后的应届生；专业为理工科，符合专业不限要求；期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求：本科和硕士均毕业于985院校东北大学，且非排除类型；年龄25岁，在22-30岁范围内；硕士毕业年份为2026年，未排除27年及之后的应届生；专业为理工科，符合专业不限要求；期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "list_candidate_21",
+      "name": "王先生\n    5天前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「材料科学」",
+      "hit_keyword": "材料科学"
+    }
+  ],
+  "error": null
+}

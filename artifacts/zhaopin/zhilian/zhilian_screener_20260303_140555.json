@@ -1,0 +1,27 @@
+{
+  "status": "interrupted",
+  "stats": {
+    "total": 2,
+    "passed": 0,
+    "rejected_ai": 0,
+    "rejected_keyword": 0,
+    "skipped": 0,
+    "failed": 1
+  },
+  "results": [
+    {
+      "card_id": "list_candidate_0",
+      "name": "马女士\n    2小时前浏览过职位",
+      "action": "failed",
+      "reason": "AI 返回内容为空",
+      "ai_result": {
+        "is_target": false,
+        "reason": "AI 返回内容为空",
+        "_parse_failed": true,
+        "raw_content": "",
+        "finish_reason": null
+      }
+    }
+  ],
+  "error": null
+}

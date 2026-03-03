@@ -173,7 +173,8 @@ class ZhilianResumeAdapter:
 
             if (cards.length === 0) return [];
 
-            const candidates = cards.map((card, idx) => {
+            // 将 DOM 元素和数据捆绑在一起，排序时保持对应关系
+            const entries = cards.map((card, idx) => {
                 const nameEl  = card.querySelector('div[class*="talent-basic-info__name--inner"]');
                 const ageEl   = card.querySelector('span[class*="age-label"]');
                 const salEl   = card.querySelector('span[class*="desired-salary"]');
@@ -181,6 +182,7 @@ class ZhilianResumeAdapter:
                 const rect    = card.getBoundingClientRect();
 
                 return {
+                    el:     card,           // 保留对原始 DOM 元素的引用
                     index:  idx,
                     name:   nameEl?.textContent.trim()  || '未知候选人',
                     age:    ageEl?.textContent.trim()   || '',
@@ -190,12 +192,11 @@ class ZhilianResumeAdapter:
                 };
             });
 
-            // 按垂直位置排序
-            candidates.sort((a, b) => a.top - b.top);
+            // 按垂直位置排序（el 随数据一起移动，下标始终对应）
+            entries.sort((a, b) => a.top - b.top);
 
-            // 重新编号并写入唯一 data-demo-cid
-            const usedIds = new Set();
-            candidates.forEach((c, i) => {
+            // 重新编号并写入唯一 data-demo-cid（写到正确的 DOM 元素上）
+            const candidates = entries.map((c, i) => {
                 c.index = i;
                 let id = `list_candidate_${i}`;
                 let n = 0;
@@ -203,8 +204,8 @@ class ZhilianResumeAdapter:
                     id = `list_candidate_${i}_${++n}`;
                 }
                 c.card_id = id;
-                cards[i].setAttribute('data-demo-cid', id);
-                usedIds.add(id);
+                c.el.setAttribute('data-demo-cid', id);  // ← 写到排序后对应的真实 DOM 节点
+                return c;
             });
 
             console.log(`[zhilian-py] 共发现 ${candidates.length} 个候选人`);
