@@ -1,0 +1,178 @@
+16:52:35 ── 第 1 批，共 22 张新卡片 ──
+16:52:35 [总第 1 张] 处理: 张先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 2 张] 处理: 杨先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 3 张] 处理: 汪女士
+16:52:35   → [风控] 随机跳过
+16:52:35 [总第 4 张] 处理: 刘先生
+16:52:35   → [风控] 随机跳过
+16:52:35 [总第 5 张] 处理: 刘先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 6 张] 处理: 许先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 7 张] 处理: 刘先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 8 张] 处理: 郭先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 9 张] 处理: 温女士
+16:52:35   → [关键词排除] 命中关键词: 「女士」（卡片摘要）
+16:52:35 [总第 10 张] 处理: 刘先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 11 张] 处理: 王先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 12 张] 处理: 罗女士
+16:52:35   → [关键词排除] 命中关键词: 「女士」（卡片摘要）
+16:52:35 [总第 13 张] 处理: 余先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 14 张] 处理: 刘先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 15 张] 处理: 吴先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 16 张] 处理: 郭女士
+16:52:35   → [关键词排除] 命中关键词: 「女士」（卡片摘要）
+16:52:35 [总第 17 张] 处理: 赵先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 18 张] 处理: 凌女士
+16:52:35   → [关键词排除] 命中关键词: 「女士」（卡片摘要）
+16:52:35 [总第 19 张] 处理: 李先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 20 张] 处理: 段先生
+16:52:35   → [风控] 随机跳过
+16:52:35 [总第 21 张] 处理: 魏先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 [总第 22 张] 处理: 任先生
+16:52:35   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:35 ── 第 1 批处理完，滚动加载更多候选人...
+16:52:35   [scroll] 第 1 轮滚动
+16:52:35   [scroll] scrollTop=52590 scrollHeight=57515 clientHeight=849 剩余=4076
+16:52:37   [scroll] 滚动后 scrollTop=56717
+16:52:38   [scroll] 等待新卡片... [1s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_28', 'vidx_29'] 新增=[]
+16:52:39   [scroll] 等待新卡片... [2s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_28', 'vidx_29'] 新增=[]
+16:52:41   [scroll] 等待新卡片... [3s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_28', 'vidx_29'] 新增=[]
+16:52:42   [scroll] 等待新卡片... [4s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_28', 'vidx_29'] 新增=[]
+16:52:43   [scroll] 等待新卡片... [5s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_28', 'vidx_29'] 新增=[]
+16:52:44   [scroll] 等待新卡片... [6s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_28', 'vidx_29'] 新增=[]
+16:52:45   [scroll] 等待新卡片... [7s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_28', 'vidx_29'] 新增=[]
+16:52:46   [scroll] 等待新卡片... [8s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_28', 'vidx_29'] 新增=[]
+16:52:46   [scroll] 扫描到 22 张，已处理 22 张，新增 0 张
+16:52:46   [scroll] 第 2 轮滚动
+16:52:46   [scroll] scrollTop=56717 scrollHeight=61566 clientHeight=849 剩余=4000
+16:52:48   [scroll] 滚动后 scrollTop=61445
+16:52:49   [scroll] 等待新卡片... [1s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=['vidx_2', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9']
+16:52:50   [scroll] 扫描到 20 张，已处理 22 张，新增 8 张
+16:52:50 ── 第 2 批，共 8 张新卡片 ──
+16:52:50 [总第 23 张] 处理: 七女士
+16:52:50   → [关键词排除] 命中关键词: 「女士」（卡片摘要）
+16:52:50 [总第 24 张] 处理: 卢先生
+16:52:50   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:50 [总第 25 张] 处理: 黄先生
+16:52:50   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:50 [总第 26 张] 处理: 董女士
+16:52:50   → [关键词排除] 命中关键词: 「女士」（卡片摘要）
+16:52:50 [总第 27 张] 处理: 黄女士
+16:52:50   → [关键词排除] 命中关键词: 「女士」（卡片摘要）
+16:52:50 [总第 28 张] 处理: 李女士
+16:52:50   → [关键词排除] 命中关键词: 「女士」（卡片摘要）
+16:52:50 [总第 29 张] 处理: 韩先生
+16:52:50   → [关键词排除] 命中关键词: 「先生」（卡片摘要）
+16:52:50 [总第 30 张] 处理: 孔先生
+16:52:50   → [风控] 随机跳过
+16:52:50 ── 第 2 批处理完，滚动加载更多候选人...
+16:52:50   [scroll] 第 1 轮滚动
+16:52:50   [scroll] scrollTop=61445 scrollHeight=65678 clientHeight=849 剩余=3384
+16:52:53   [scroll] 滚动后 scrollTop=65441
+16:52:54   [scroll] 等待新卡片... [1s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:52:55   [scroll] 等待新卡片... [2s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:52:56   [scroll] 等待新卡片... [3s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:52:57   [scroll] 等待新卡片... [4s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:52:58   [scroll] 等待新卡片... [5s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:52:59   [scroll] 等待新卡片... [6s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:00   [scroll] 等待新卡片... [7s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:01   [scroll] 等待新卡片... [8s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:01   [scroll] 扫描到 20 张，已处理 30 张，新增 0 张
+16:53:01   [scroll] 第 2 轮滚动
+16:53:01   [scroll] scrollTop=65441 scrollHeight=69752 clientHeight=849 剩余=3462
+16:53:04   [scroll] 滚动后 scrollTop=70149
+16:53:05   [scroll] 等待新卡片... [1s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:06   [scroll] 等待新卡片... [2s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:07   [scroll] 等待新卡片... [3s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:08   [scroll] 等待新卡片... [4s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:09   [scroll] 等待新卡片... [5s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:10   [scroll] 等待新卡片... [6s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:11   [scroll] 等待新卡片... [7s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:12   [scroll] 等待新卡片... [8s] 窗口内=['vidx_0', 'vidx_1', 'vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_2', 'vidx_29', 'vidx_3', 'vidx_4', 'vidx_5', 'vidx_6', 'vidx_7', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:12   [scroll] 扫描到 20 张，已处理 30 张，新增 0 张
+16:53:12   [scroll] 第 3 轮滚动
+16:53:12   [scroll] scrollTop=70149 scrollHeight=73830 clientHeight=849 剩余=2832
+16:53:15   [scroll] 滚动后 scrollTop=74857
+16:53:16   [scroll] 等待新卡片... [1s] 窗口内=['vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:17   [scroll] 等待新卡片... [2s] 窗口内=['vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:18   [scroll] 等待新卡片... [3s] 窗口内=['vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:19   [scroll] 等待新卡片... [4s] 窗口内=['vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:20   [scroll] 等待新卡片... [5s] 窗口内=['vidx_10', 'vidx_11', 'vidx_12', 'vidx_13', 'vidx_14', 'vidx_15', 'vidx_16', 'vidx_17', 'vidx_18', 'vidx_19', 'vidx_20', 'vidx_21', 'vidx_22', 'vidx_23', 'vidx_24', 'vidx_25', 'vidx_26', 'vidx_27', 'vidx_8', 'vidx_9'] 新增=[]
+16:53:22 Task exception was never retrieved
+future: <Task finished name='Task-117' coro=<Page.evaluate() done, defined at \\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_page.py:463> exception=KeyboardInterrupt()>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\agno1\pipelines\zhaopin\zhilian\zhilian_screener.py", line 585, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\agno1\pipelines\zhaopin\zhilian\zhilian_screener.py", line 561, in main
+    result = run_screener(
+             ^^^^^^^^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\agno1\pipelines\zhaopin\zhilian\zhilian_screener.py", line 475, in run_screener
+    cards = adapter.scroll_and_get_new_cards(page, processed_ids)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\agno1\browser_automation\zhaopin\zhilian\zhilian_resume.py", line 299, in scroll_and_get_new_cards
+    cur_ids = _get_visible_indices()
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\agno1\browser_automation\zhaopin\zhilian\zhilian_resume.py", line 262, in _get_visible_indices
+    ids: List[str] = page.evaluate("""
+                     ^^^^^^^^^^^^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 8566, in evaluate
+    self._sync(
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 113, in _sync
+    self._dispatcher_fiber.switch()
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\sync_api\_context_manager.py", line 56, in greenlet_main
+    self._loop.run_until_complete(self._connection.run_as_sync())
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_page.py", line 464, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_frame.py", line 320, in evaluate
+    await self._channel.send(
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 557, in wrap_api_call
+    return await cb()
+           ^^^^^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 120, in _inner_send
+    callback = self._connection._send_message_to_server(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 369, in _send_message_to_server
+    getattr(task, "__pw_stack_trace__", traceback.extract_stack(limit=10)),
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\traceback.py", line 232, in extract_stack
+    stack = StackSummary.extract(walk_stack(f), limit=limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\traceback.py", line 395, in extract
+    return klass._extract_from_extended_frame_gen(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\traceback.py", line 434, in _extract_from_extended_frame_gen
+    linecache.checkcache(filename)
+  File "C:\Users\Administrator\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\linecache.py", line 75, in checkcache
+    stat = os.stat(fullname)
+           ^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

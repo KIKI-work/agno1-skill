@@ -11,7 +11,7 @@
 DOM 操作策略：
 - 优先通过 page.evaluate() 注入 JS 直接操作页面 DOM（与插件 content script 逻辑等价）
 - Playwright 负责 CDP 连接、页面导航、等待条件，不做复杂的多步 locator 链
-- 关键选择器统一维护在 zhilian_selectors.py ZHILIAN_RESUME_SELECTORS
+- 关键选择器统一维护在 zhilian_screener_selectors.py ZHILIAN_SCREENER_SELECTORS
 
 参考来源：
 - F:/KIKI/代码库/chrome插件/HRchat/workspace/zhaopin-im-automation/zhaopin-resume-screener-skill.js
@@ -27,7 +27,7 @@ from typing import Any, Dict, List, Optional
 from playwright.sync_api import Page
 
 from agno1.browser_automation.manager import BrowserManager
-from agno1.browser_automation.zhaopin.zhilian.zhilian_selectors import ZHILIAN_RESUME_SELECTORS
+from agno1.browser_automation.zhaopin.zhilian.zhilian_screener_selectors import ZHILIAN_SCREENER_SELECTORS
 
 
 # ---------------------------------------------------------------------------
@@ -75,12 +75,12 @@ class ScreenResult:
 # 智联招聘简历筛适配器
 # ---------------------------------------------------------------------------
 
-class ZhilianResumeAdapter:
+class ZhilianScreenerAdapter:
     """
     智联招聘推荐候选人简历筛适配器。
 
     使用方式：
-        adapter = ZhilianResumeAdapter(browser=bm)
+        adapter = ZhilianScreenerAdapter(browser=bm)
         # 在已导航到智联招聘推荐人才页面的 Page 上执行
         page = adapter.get_page(session_id="zhilian_screener", url=url)
         cards = adapter.get_candidate_cards(page)
@@ -96,7 +96,7 @@ class ZhilianResumeAdapter:
 
     def __init__(self, *, browser: BrowserManager):
         self._browser = browser
-        self._sel = ZHILIAN_RESUME_SELECTORS
+        self._sel = ZHILIAN_SCREENER_SELECTORS
 
     # ------------------------------------------------------------------
     # 页面准备
@@ -634,7 +634,12 @@ class ZhilianResumeAdapter:
         return info
 
 
+# 向后兼容别名
+ZhilianResumeAdapter = ZhilianScreenerAdapter
+
+
 __all__ = [
+    "ZhilianScreenerAdapter",
     "ZhilianResumeAdapter",
     "CandidateInfo",
     "CardSummary",

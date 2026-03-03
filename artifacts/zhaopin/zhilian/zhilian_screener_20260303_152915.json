@@ -1,0 +1,166 @@
+{
+  "status": "complete",
+  "stats": {
+    "total": 22,
+    "passed": 0,
+    "rejected_ai": 0,
+    "rejected_keyword": 20,
+    "skipped": 2,
+    "failed": 0
+  },
+  "results": [
+    {
+      "card_id": "list_candidate_0",
+      "name": "余先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_1",
+      "name": "高先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_2",
+      "name": "兰女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "list_candidate_3",
+      "name": "任先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "list_candidate_4",
+      "name": "余先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_5",
+      "name": "刘先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_6",
+      "name": "焦女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "list_candidate_7",
+      "name": "白先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_8",
+      "name": "董先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_9",
+      "name": "龙先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_10",
+      "name": "梁先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "list_candidate_11",
+      "name": "傅女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "list_candidate_12",
+      "name": "王女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "list_candidate_13",
+      "name": "陈先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_14",
+      "name": "邵先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_15",
+      "name": "李先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_16",
+      "name": "余女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "list_candidate_17",
+      "name": "周先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_18",
+      "name": "陶先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_19",
+      "name": "陈先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_20",
+      "name": "汤先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "list_candidate_21",
+      "name": "魏先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    }
+  ],
+  "error": null
+}

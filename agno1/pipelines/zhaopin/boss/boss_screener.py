@@ -69,7 +69,7 @@ if str(_REPO_ROOT) not in sys.path:
 
 from agno1.browser_automation.manager import BrowserConfig, BrowserManager
 from agno1.browser_automation.utils import ensure_dir, normalize_cdp_endpoint
-from agno1.browser_automation.zhaopin.boss.boss_resume import (
+from agno1.browser_automation.zhaopin.boss.boss_screener_adapter import (
     BossResumeAdapter,
     CardSummary,
     CandidateInfo,
@@ -168,7 +168,7 @@ def _call_ai(
 
 
 # ---------------------------------------------------------------------------
-# 主流水线函数（TODO: BossResumeAdapter 实现后功能可用）
+# 主流水线函数（TODO: BossScreenerAdapter 实现后功能可用）
 # ---------------------------------------------------------------------------
 
 def run_screener(

@@ -76,7 +76,7 @@ if str(_REPO_ROOT) not in sys.path:
 
 from agno1.browser_automation.manager import BrowserConfig, BrowserManager
 from agno1.browser_automation.utils import ensure_dir, normalize_cdp_endpoint
-from agno1.browser_automation.zhaopin.zhilian.zhilian_resume import (
+from agno1.browser_automation.zhaopin.zhilian.zhilian_screener_adapter import (
     CardSummary,
     CandidateInfo,
     ScreenResult,
