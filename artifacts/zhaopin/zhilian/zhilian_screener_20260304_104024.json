@@ -1,0 +1,130 @@
+{
+  "status": "complete",
+  "stats": {
+    "total": 14,
+    "passed": 1,
+    "rejected_ai": 3,
+    "rejected_keyword": 6,
+    "skipped": 2,
+    "failed": 2
+  },
+  "results": [
+    {
+      "card_id": "vidx_0_E69D8EE5A5B3E5A3AB7C23E5B2817C7E58D83-1.",
+      "name": "李女士\n    3小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "所有条件均符合要求。第一学历为985院校（中国农业大学），专业为市场营销（非理工科专业允许），年龄23岁（在22-30岁范围内），2025年毕业（非2027年及之后应届生），期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"所有条件均符合要求。第一学历为985院校（中国农业大学），专业为市场营销（非理工科专业允许），年龄23岁（在22-30岁范围内），2025年毕业（非2027年及之后应届生），期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_1_E88296E58588E7949F7C25E5B2817C7CE59CA8E6",
+      "name": "肖先生\n    3小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_2_E894A1E58588E7949F7C23E5B2817C6E58D83-8E",
+      "name": "蔡先生\n    3小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「游戏」",
+      "hit_keyword": "游戏"
+    },
+    {
+      "card_id": "vidx_3_E69687E5A5B3E5A3AB7C23E5B2817C7CE59CA8E6",
+      "name": "文女士\n    2小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「银行」",
+      "hit_keyword": "银行"
+    },
+    {
+      "card_id": "vidx_4_E4BF9EE58588E7949F7C26E5B2817C1.2E4B887-",
+      "name": "俞先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）为南京审计大学，不符合学校要求中第一学历为985/211院校的条件。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）为南京审计大学，不符合学校要求中第一学历为985/211院校的条件。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_0_E5B7ABE5A5B3E5A3AB7C26E5B2817C1E4B887-1.",
+      "name": "巫女士",
+      "action": "failed",
+      "reason": "Page.evaluate: Error: 未找到打招呼按钮\n    at eval (eval at evaluate (:290:30), <anonymous>:37:29)\n    at UtilityScript.evaluate (<anonymous>:297:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "card_id": "vidx_1_E69BBEE5A5B3E5A3AB7C24E5B2817C1.4E4B887-",
+      "name": "肖先生\n    3小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_2_E99988E5A5B3E5A3AB7C26E5B2817C1E4B887-2E",
+      "name": "蔡先生\n    3小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「游戏」",
+      "hit_keyword": "游戏"
+    },
+    {
+      "card_id": "vidx_3_E8B5B5E5A5B3E5A3AB7C25E5B2817C1.3E4B887-",
+      "name": "文女士\n    2小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「银行」",
+      "hit_keyword": "银行"
+    },
+    {
+      "card_id": "vidx_4_E78E8BE58588E7949F7C28E5B2817C1E4B887-2E",
+      "name": "俞先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）为南京审计大学，不符合学校要求中“第一学历为985211院校”的条件。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）为南京审计大学，不符合学校要求中“第一学历为985211院校”的条件。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_5_E78E8BE5A5B3E5A3AB7C25E5B2817C7E58D83-1.",
+      "name": "王女士\n    22小时前浏览过职位",
+      "action": "failed",
+      "reason": "格式异常（无法解析为 JSON）",
+      "raw_content": "药学（非计算机理工背景），但招聘要求明确“专业不限，非理工科专业可以放行”，因此符合院校和专业要求。毕业年份为2023年，不属于2027年及之后的应届生。期望地点为重庆，符合地点要求。\"\n}\n```",
+      "finish_reason": "stop"
+    },
+    {
+      "card_id": "vidx_6_E7BD97E5A5B3E5A3AB7C27E5B2817C5E58D83-7E",
+      "name": "罗女士",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_7_E99988E58588E7949F7C28E5B2817C8E58D83-1.",
+      "name": "陈先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_8_E69BBEE58588E7949F7C28E5B2817C1E4B887-2E",
+      "name": "曾先生\n    5天前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求，本科院校成都理工大学非985/211院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求，本科院校成都理工大学非985/211院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    }
+  ],
+  "error": null
+}

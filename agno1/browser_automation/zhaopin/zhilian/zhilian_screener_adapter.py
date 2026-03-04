@@ -59,6 +59,8 @@ class CardSummary:
     age: str = ""
     salary: str = ""
     status: str = ""
+    top: float = 0.0
+
 
 
 @dataclass
@@ -152,165 +154,210 @@ class ZhilianScreenerAdapter:
         """)
 
     def get_candidate_cards(self, page: Page) -> List[CardSummary]:
-        """
-        获取当前页面上的候选人卡片列表。
-
-        虚拟滚动适配策略：
-        - 智联招聘使用虚拟滚动，DOM 中始终只有约 20 个卡片节点（复用），
-          滚动时节点内容被替换，节点数量不变。
-        - 用 data-index 属性作为业务唯一 id（平台自带连续序号，滚动后值随内容更新），
-          不再依赖自定义的 data-demo-cid 去重。
-        - data-demo-cid 只用于本次处理周期内通过 card_id 定位 DOM 元素（点击/滚动），
-          每次调用时重新打标，不跨批次保留。
-
-        Returns:
-            按 data-index（虚拟列表行号）排序的候选人列表。
-        """
-        time.sleep(0.3)
+        """获取当前可见候选人卡片（重构版）。"""
+        time.sleep(0.2)
 
         raw: List[Dict[str, Any]] = page.evaluate("""
         () => {
-            // 优先：data-index 属性（虚拟滚动列表行号，平台自带）
-            let cards = Array.from(document.querySelectorAll('[data-index].recommend-item'));
+            const selectors = [
+                '[data-index].recommend-item',
+                '.recommend-item',
+                'div.resume-item__content.resume-card-exp',
+                'div[class*="recommend-item__inner-content"]',
+                'div[class*="resume-item__content"]',
+            ];
 
-            // 降级1：原始 class 选择器（兼容旧版）
-            if (cards.length === 0) {
-                cards = Array.from(document.querySelectorAll('div.resume-item__content.resume-card-exp'));
+            const isVisible = (el) => {
+                if (!el) return false;
+                const rect = el.getBoundingClientRect();
+                if (rect.width <= 0 || rect.height <= 0) return false;
+                const style = window.getComputedStyle(el);
+                if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') return false;
+                return true;
+            };
+
+            const uniq = new Set();
+            const cards = [];
+            for (const sel of selectors) {
+                for (const node of Array.from(document.querySelectorAll(sel))) {
+                    const card = node.closest('.recommend-item') || node;
+                    if (uniq.has(card)) continue;
+                    uniq.add(card);
+                    if (!isVisible(card)) continue;
+                    if (!card.querySelector('div[class*="talent-basic-info__name--inner"]')) continue;
+                    cards.push(card);
+                }
             }
 
-            // 降级2：结构兜底
-            if (cards.length === 0) {
-                cards = Array.from(document.querySelectorAll('[data-index]')).filter(el =>
-                    el.querySelector('div[class*="talent-basic-info__name--inner"]')
-                );
-            }
+            if (cards.length === 0) return [];
 
-            if (cards.length === 0) {
-                console.warn('[zhilian-py] 未找到任何候选人卡片');
-                return [];
-            }
-            console.log('[zhilian-py] 卡片数量:', cards.length);
-
-            // 重新打 data-demo-cid（本次处理周期内用于 DOM 定位，旧值直接覆盖）
-            const result = [];
-            cards.forEach((card) => {
-                const dataIndex = card.getAttribute('data-index');
-                // card_id 使用 data-index 作为唯一业务标识（虚拟滚动下最稳定）
-                const card_id = dataIndex !== null ? `vidx_${dataIndex}` : null;
-                if (card_id === null) return;  // 没有 data-index 的节点跳过
-
-                // 打 data-demo-cid（供 scroll_to_card / open_candidate_detail 定位用）
-                card.setAttribute('data-demo-cid', card_id);
+            const result = cards.map((card, ordinal) => {
+                const dataIndex = card.getAttribute('data-index') || card.closest('[data-index]')?.getAttribute('data-index') || '';
 
                 const nameEl  = card.querySelector('div[class*="talent-basic-info__name--inner"]');
                 const ageEl   = card.querySelector('span[class*="age-label"]');
                 const salEl   = card.querySelector('span[class*="desired-salary"]');
                 const statEl  = card.querySelector('span[class*="career-status-label"]');
 
-                result.push({
-                    card_id,
-                    index:  parseInt(dataIndex, 10),
-                    name:   nameEl?.textContent.trim()  || '未知候选人',
-                    age:    ageEl?.textContent.trim()   || '',
-                    salary: salEl?.textContent.trim()   || '',
-                    status: statEl?.textContent.trim()  || '',
-                });
+                const name   = nameEl?.textContent?.trim() || '未知候选人';
+                const age    = ageEl?.textContent?.trim() || '';
+                const salary = salEl?.textContent?.trim() || '';
+                const status = statEl?.textContent?.trim() || '';
+
+                const rect = card.getBoundingClientRect();
+                const top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0);
+
+                const sigRaw = `${name}|${age}|${salary}|${status}`;
+                const sig = encodeURIComponent(sigRaw).replace(/%/g, '').slice(0, 40) || `ord_${ordinal}`;
+
+                const parsedIndex = dataIndex !== '' ? parseInt(dataIndex, 10) : Number.NaN;
+                const index = Number.isFinite(parsedIndex) ? parsedIndex : Math.round(top);
+                const card_id = Number.isFinite(parsedIndex)
+                    ? `vidx_${dataIndex}_${sig}`
+                    : `vpos_${Math.round(top)}_${ordinal}_${sig}`;
+
+                card.setAttribute('data-demo-cid', card_id);
+
+                return { card_id, index, name, age, salary, status, top };
             });
 
-            // 按 data-index 排序（即虚拟列表中的真实顺序）
-            result.sort((a, b) => a.index - b.index);
-            console.log(`[zhilian-py] 当前窗口内候选人 index 范围: ${result[0]?.index} ~ ${result[result.length-1]?.index}`);
+            result.sort((a, b) => a.top - b.top);
             return result;
         }
         """)
 
         return [
             CardSummary(
-                index=r["index"],
-                card_id=r["card_id"],
+                index=int(r.get("index", 0)),
+                card_id=r.get("card_id", ""),
                 name=r.get("name", "未知候选人"),
                 age=r.get("age", ""),
                 salary=r.get("salary", ""),
                 status=r.get("status", ""),
+                top=float(r.get("top", 0.0)),
             )
             for r in (raw or [])
+            if r.get("card_id")
         ]
 
-    def scroll_and_get_new_cards(
-        self,
-        page: Page,
-        processed_ids: set,
-    ) -> List[CardSummary]:
+
+    def is_list_bottom(self, page: Page) -> bool:
         """
-        虚拟滚动适配版：滚动列表，等待新 data-index 的卡片出现在窗口内。
+        检测智联招聘推荐列表是否已到物理尽头。
 
-        虚拟滚动下 DOM 卡片节点数量不变，判断新卡片的唯一依据是
-        当前窗口内出现了 processed_ids 中没有的 card_id（vidx_N）。
-
-        Args:
-            page:          当前 Playwright Page
-            processed_ids: 已处理的 card_id 集合（格式 "vidx_N"）
+        唯一可靠信号：页面出现可见的
+        <div class="recommend-indicator">已经到底啦～</div>
 
         Returns:
-            新增的未处理卡片列表；若无新卡片则返回空列表（到底）。
+            True 表示确实到底，False 表示尚未到底。
         """
-        def _get_visible_indices() -> set:
-            """返回当前窗口内所有卡片的 card_id 集合（vidx_N 格式）。"""
-            ids: List[str] = page.evaluate("""
-            () => Array.from(document.querySelectorAll('[data-index].recommend-item'))
-                       .map(el => 'vidx_' + el.getAttribute('data-index'))
-                       .filter(Boolean)
-            """)
-            return set(ids)
+        return bool(page.evaluate("""
+        () => {
+            const els = document.querySelectorAll('.recommend-indicator');
+            return Array.from(els).some(
+                el => el.offsetParent !== null && el.textContent.includes('已经到底啦')
+            );
+        }
+        """))
 
-        def _do_scroll() -> None:
-            """模拟鼠标滚轮向下滚动，触发虚拟滚动加载下一批。"""
-            ch: int = page.evaluate("() => document.documentElement.clientHeight")
-            # 鼠标移到页面中央，分步滚动（虚拟滚动必须用真实 wheel 事件）
-            page.mouse.move(ch // 2, ch // 2)
-            for _ in range(12):
-                page.mouse.wheel(0, 600)
-                time.sleep(0.12)
+    def step_scroll(self, page: Page) -> None:
+        """向下滚动一步：优先列表容器，降级 window。"""
+        page.evaluate("""
+        () => {
+            const containers = [
+                document.querySelector('div[class*="recommend-list"]'),
+                document.querySelector('div[class*="candidate-list"]'),
+                document.querySelector('.km-scrollbar__wrap'),
+                document.querySelector('[role="list"]'),
+            ].filter(Boolean);
 
-        for attempt in range(3):
-            _do_scroll()
+            const scroller = containers.find(el => (el.scrollHeight - el.clientHeight) > 20);
+            if (scroller) {
+                const step = Math.max(220, Math.floor(scroller.clientHeight * 0.6));
+                scroller.scrollBy({ top: step, left: 0, behavior: 'smooth' });
+                return;
+            }
 
-            # 等待窗口内出现 processed_ids 之外的新 card_id（最多等 8 秒）
-            for _ in range(8):
-                time.sleep(1.0)
-                cur_ids = _get_visible_indices()
-                if cur_ids - processed_ids:
-                    time.sleep(0.3)
-                    break
+            window.scrollBy({ top: 220, left: 0, behavior: 'smooth' });
+        }
+        """)
 
+    def try_go_next_page(self, page: Page) -> bool:
+        """尝试点击“下一页”按钮。"""
+        return bool(page.evaluate("""
+        () => {
+            const candidates = [
+                ...Array.from(document.querySelectorAll('button')),
+                ...Array.from(document.querySelectorAll('[role="button"]')),
+                ...Array.from(document.querySelectorAll('a')),
+                ...Array.from(document.querySelectorAll('[aria-label*="下一页"]')),
+            ];
+
+            const btn = candidates.find(el => {
+                const txt = (el.textContent || '').trim();
+                const visible = el.offsetParent !== null;
+                const cls = String(el.className || '');
+                const disabled = el.hasAttribute('disabled') || el.getAttribute('aria-disabled') === 'true' || cls.includes('disabled');
+                return visible && !disabled && (txt === '下一页' || txt.includes('下一页') || txt.includes('下页'));
+            });
+
+            if (!btn) return false;
+            btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            btn.click();
+            return true;
+        }
+        """))
+
+    def scroll_and_get_new_cards(self, page: Page, processed_ids: set[str]) -> List[CardSummary]:
+        """滚动获取新卡；无新卡时尝试翻页。"""
+        for _ in range(6):
+            self.step_scroll(page)
+            time.sleep(0.9)
             all_cards = self.get_candidate_cards(page)
             new_cards = [c for c in all_cards if c.card_id not in processed_ids]
-
             if new_cards:
                 return new_cards
 
+        if self.try_go_next_page(page):
+            time.sleep(2.0)
+            all_cards = self.get_candidate_cards(page)
+            return [c for c in all_cards if c.card_id not in processed_ids]
+
         return []
+
 
     # ------------------------------------------------------------------
     # 候选人详情操作
     # ------------------------------------------------------------------
 
     def scroll_to_card(self, page: Page, card: CardSummary) -> None:
-        """滚动到指定候选人卡片，确保其在视口内。"""
+        """
+        滚动到指定候选人卡片，确保其在视口内，并重新打 data-demo-cid 标记。
+
+        虚拟列表滚动后 DOM 节点被复用，旧的 data-demo-cid 会丢失。
+        因此优先通过 data-index 定位，滚动到位后再刷新 data-demo-cid，
+        保证后续 open_candidate_detail 能正确找到目标卡片。
+        """
         page.evaluate(
             """
-            (cid) => {
-                const el = document.querySelector(`[data-demo-cid="${cid}"]`);
+            ({dataIndex, cardId}) => {
+                // 优先通过 data-index 精确定位（虚拟列表最稳定的属性）
+                let el = document.querySelector(`[data-index="${dataIndex}"].recommend-item`);
+                // 降级：通过 data-demo-cid（当前批次首次打标后仍有效时）
+                if (!el) el = document.querySelector(`[data-demo-cid="${cardId}"]`);
                 if (!el) return;
+
                 const rect = el.getBoundingClientRect();
                 const margin = 100;
                 const inViewport = rect.top >= margin && rect.bottom <= window.innerHeight - margin;
                 if (!inViewport) {
                     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
+                // 重新打 data-demo-cid，确保 open_candidate_detail 能定位到
+                el.setAttribute('data-demo-cid', cardId);
             }
             """,
-            card.card_id,
+            {"dataIndex": card.index, "cardId": card.card_id},
         )
         time.sleep(0.8)
 
@@ -509,60 +556,96 @@ class ZhilianScreenerAdapter:
         )
 
     def click_greet_button(self, page: Page) -> None:
-        """
-        在当前简历详情弹窗内点击「打招呼」按钮。
-        使用 XPath 精准定位，避免误触「打电话」。
-        等价于 zhaopin-resume-screener-skill.js _clickGreetButton()。
-        """
+        """点击当前详情弹窗中的「打招呼」按钮。"""
         page.evaluate("""
         () => {
+            const isVisible = (el) => {
+                if (!el) return false;
+                const rect = el.getBoundingClientRect();
+                if (rect.width <= 0 || rect.height <= 0) return false;
+                const style = window.getComputedStyle(el);
+                return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+            };
+
+            const isDisabled = (el) => {
+                if (!el) return true;
+                const cls = String(el.className || '');
+                return el.hasAttribute('disabled') || el.getAttribute('aria-disabled') === 'true' || cls.includes('disabled');
+            };
+
+            const textOf = (el) => (el?.textContent || '').replace(/\\s+/g, ' ').trim();
+
             const modalSelectors = [
-                '[class*="resume-detail"]', '.km-dialog__wrapper',
-                '.km-overlay', '.modal-wrapper', '.candidate-detail', '.detail-modal'
+                '[class*="resume-detail"]',
+                'div[class*="resume-detail-container"]',
+                'div[class*="resume-detail-modal"]',
+                '.candidate-detail',
+                '.detail-modal',
+                '.km-dialog__wrapper'
             ];
-            let modal = null;
+            const visibleModals = [];
             for (const sel of modalSelectors) {
-                const candidates = document.querySelectorAll(sel);
-                modal = Array.from(candidates).find(el => el.offsetParent !== null);
-                if (modal) break;
-            }
-
-            if (!modal) throw new Error('未找到可见的简历弹窗');
-
-            // XPath 精准定位「打招呼」（避免误触「打电话」）
-            let btn = null;
-            try {
-                const node = document.evaluate(
-                    ".//div[contains(text(),'打招呼')]",
-                    modal, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
-                ).singleNodeValue;
-                if (node) {
-                    btn = node.closest('.km-ripple') ||
-                          node.closest('button') ||
-                          node.parentElement?.parentElement;
+                for (const m of Array.from(document.querySelectorAll(sel))) {
+                    if (isVisible(m) && !visibleModals.includes(m)) visibleModals.push(m);
                 }
-            } catch (e) {}
-
-            // 降级：遍历所有按钮
-            if (!btn) {
-                const allBtns = modal.querySelectorAll('button');
-                btn = Array.from(allBtns).find(b =>
-                    b.textContent.includes('打招呼') && !b.textContent.includes('打电话')
-                );
             }
 
-            if (!btn) throw new Error('未找到打招呼按钮');
-            if (btn.textContent?.includes('打电话')) throw new Error('定位到的是「打电话」按钮，已中止');
+            const pickInRoot = (root) => {
+                const roots = [root || document];
+                for (const r of roots) {
+                    const cssCandidates = Array.from(r.querySelectorAll(
+                        'button, [role="button"], .km-ripple, div[class*="resume-btn__inner"], div[class*="resume-btn__text"]'
+                    ));
+                    const hit = cssCandidates.find((el) => {
+                        const btn = el.closest('button, [role="button"], .km-ripple') || el;
+                        const t = textOf(btn);
+                        return t.includes('打招呼') && !t.includes('打电话') && isVisible(btn) && !isDisabled(btn);
+                    });
+                    if (hit) return hit.closest('button, [role="button"], .km-ripple') || hit;
+
+                    try {
+                        const xpath = ".//*[contains(normalize-space(.),'打招呼') and not(contains(normalize-space(.),'打电话'))]";
+                        const node = document.evaluate(xpath, r, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+                        if (node) {
+                            const btn = node.closest('button, [role="button"], .km-ripple') || node;
+                            if (isVisible(btn) && !isDisabled(btn)) return btn;
+                        }
+                    } catch (e) {}
+                }
+                return null;
+            };
+
+            let btn = null;
+            for (const modal of visibleModals) {
+                btn = pickInRoot(modal);
+                if (btn) break;
+            }
+            if (!btn) btn = pickInRoot(document);
+
+            if (!btn) {
+                const nearby = Array.from(document.querySelectorAll('button, [role="button"], .km-ripple'))
+                    .map(el => textOf(el))
+                    .filter(Boolean)
+                    .slice(0, 12)
+                    .join(' | ');
+                throw new Error(`未找到打招呼按钮; 当前可见按钮示例: ${nearby}`);
+            }
+
+            const finalText = textOf(btn);
+            if (!finalText.includes('打招呼') || finalText.includes('打电话')) {
+                throw new Error(`命中的按钮文本不合法: ${finalText}`);
+            }
 
             btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => {
-                btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-                btn.click();
-                console.log('[zhilian-py] 打招呼按钮点击成功');
-            }, 500);
+            btn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window }));
+            btn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, view: window }));
+            btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+            if (typeof btn.click === 'function') btn.click();
+            console.log('[zhilian-py] 打招呼按钮点击成功');
         }
         """)
-        time.sleep(2.0)     # 等待打招呼动作完成（网络请求）
+        time.sleep(2.0)
+
 
     def close_detail(self, page: Page) -> None:
         """

@@ -1,0 +1,123 @@
+{
+  "status": "running",
+  "stats": {
+    "total": 11,
+    "passed": 4,
+    "rejected_ai": 3,
+    "rejected_keyword": 1,
+    "skipped": 3,
+    "failed": 0
+  },
+  "results": [
+    {
+      "card_id": "vidx_0_E58898E58588E7949F7C28E5B2817C7CE7A6BBE8",
+      "name": "刘先生\n    1小时前有回复",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_1_E79B96E5A5B3E5A3AB7C22E5B2817C1E4B887-2E",
+      "name": "盖女士",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_2_E9BB84E58588E7949F7C22E5B2817C7E58D83-1.",
+      "name": "黄先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_3_E58898E58588E7949F7C22E5B2817C7E58D83-1E",
+      "name": "刘先生\n    3天前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "所有条件均符合：年龄22岁在22-30岁范围内；毕业年份2026年不属于2027年及之后应届生（排除27年及之后）；第一学历海南大学为211院校，且专业为软件工程，符合院校和专业要求（未明确海南大学软件工程为非强势计算机理工背景）；期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"所有条件均符合：年龄22岁在22-30岁范围内；毕业年份2026年不属于2027年及之后应届生（排除27年及之后）；第一学历海南大学为211院校，且专业为软件工程，符合院校和专业要求（未明确海南大学软件工程为非强势计算机理工背景）；期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_4_E58FB6E58588E7949F7C22E5B2817C6E58D83-8E",
+      "name": "叶先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_5_E5BCA0E58588E7949F7C27E5B2817C6E58D83-1.",
+      "name": "张先生\n    16小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求。本科院校重庆理工大学非985/211院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求。本科院校重庆理工大学非985/211院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_6_E9A9ACE58588E7949F7C23E5B2817C1E4B887-2E",
+      "name": "马先生\n    2小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求：\n1. **第一学历：** 江南大学为211院校，且专业为计算机科学与技术，符合第一学历为985/211且为强势计算机理工背景的要求。\n2. **年龄：** 23岁，在22-30岁的年龄范围内。\n3. **应届生年限：** 2025年毕业，不属于2027年及之后的应届生。\n4. **专业：** 计算机科学与技术专业符合“专业不限”的要求。\n5. **期望地点：** 期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求：\\n1. **第一学历：** 江南大学为211院校，且专业为计算机科学与技术，符合第一学历为985/211且为强势计算机理工背景的要求。\\n2. **年龄：** 23岁，在22-30岁的年龄范围内。\\n3. **应届生年限：** 2025年毕业，不属于2027年及之后的应届生。\\n4. **专业：** 计算机科学与技术专业符合“专业不限”的要求。\\n5. **期望地点：** 期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_7_E5BA84E58588E7949F7C22E5B2817C8E58D83-1.",
+      "name": "庄先生\n    4小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求。第一学历南京理工大学为211院校，且属于强势理工科院校。年龄22岁，在22-30岁范围内，且毕业年份为2026年，不属于2027年及之后的应届生。专业为电子信息，符合专业不限的要求。期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求。第一学历南京理工大学为211院校，且属于强势理工科院校。年龄22岁，在22-30岁范围内，且毕业年份为2026年，不属于2027年及之后的应届生。专业为电子信息，符合专业不限的要求。期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_8_E7BD97E58588E7949F7C23E5B2817C8E58D83-1E",
+      "name": "罗先生\n    10小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "所有条件均符合。本科学校为211院校中国石油大学（北京），专业为自动化，属于理工科背景，符合学校要求；年龄23岁，在22-30岁范围内；毕业年份为2025年，早于2027年，符合年限要求；期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"所有条件均符合。本科学校为211院校中国石油大学（北京），专业为自动化，属于理工科背景，符合学校要求；年龄23岁，在22-30岁范围内；毕业年份为2025年，早于2027年，符合年限要求；期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_9_E69D8EE5A5B3E5A3AB7C22E5B2817C8E58D83-1.",
+      "name": "李女士\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求：简历显示本科院校为西南大学（211院校），专业为通信工程。虽然是211院校且专业为理工科，但根据学校要求，需排除非强势计算机理工背景的985/211学校。西南大学的计算机理工背景不属于强势，因此不符合此项要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求：简历显示本科院校为西南大学（211院校），专业为通信工程。虽然是211院校且专业为理工科，但根据学校要求，需排除非强势计算机理工背景的985/211学校。西南大学的计算机理工背景不属于强势，因此不符合此项要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_10_E7BD97E5A5B3E5A3AB7C22E5B2817C3E58D83-6E",
+      "name": "罗女士\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历院校西南大学虽然是211院校，但其信息管理与信息系统专业不属于强势计算机理工背景，不符合“排除非强势计算机理工背景的985211学校”的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历院校西南大学虽然是211院校，但其信息管理与信息系统专业不属于强势计算机理工背景，不符合“排除非强势计算机理工背景的985211学校”的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    }
+  ],
+  "error": null
+}

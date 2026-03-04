@@ -1,0 +1,328 @@
+{
+  "status": "complete",
+  "stats": {
+    "total": 30,
+    "passed": 1,
+    "rejected_ai": 16,
+    "rejected_keyword": 8,
+    "skipped": 4,
+    "failed": 1
+  },
+  "results": [
+    {
+      "card_id": "vidx_0",
+      "name": "向先生\n    1小时前有回复",
+      "action": "rejected_ai",
+      "reason": "第一学历（本科）重庆理工大学不符合985/211院校要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）重庆理工大学不符合985/211院校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）重庆理工大学不符合985/211院校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_1",
+      "name": "黎先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_2",
+      "name": "陶女士\n    1小时前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "第一学历不符合要求。简历显示本科院校为重庆城市科技学院，该院校并非985/211院校。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求。简历显示本科院校为重庆城市科技学院，该院校并非985/211院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求。简历显示本科院校为重庆城市科技学院，该院校并非985/211院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_3",
+      "name": "史女士\n    1小时前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "第一学历不符合要求。简历显示其本科院校为白城师范学院，该学校并非985或211院校。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求。简历显示其本科院校为白城师范学院，该学校并非985或211院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求。简历显示其本科院校为白城师范学院，该学校并非985或211院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_4",
+      "name": "何先生\n    1小时前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "第一学历不符合要求，重庆对外经贸学院非985/211院校。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求，重庆对外经贸学院非985/211院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求，重庆对外经贸学院非985/211院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_5",
+      "name": "孙女士\n    10分钟前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "第一学历（本科）重庆三峡学院非985/211院校，不符合学校要求；且年龄27岁，硕士毕业时间为2024年，属于被排除的27年及之后的应届生。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）重庆三峡学院非985/211院校，不符合学校要求；且年龄27岁，硕士毕业时间为2024年，属于被排除的27年及之后的应届生。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）重庆三峡学院非985/211院校，不符合学校要求；且年龄27岁，硕士毕业时间为2024年，属于被排除的27年及之后的应届生。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_6",
+      "name": "张女士\n    1小时前浏览过职位",
+      "action": "greeted",
+      "reason": "1. 第一学历：南昌大学是211院校，符合985/211要求。虽然简历中提到“南昌大学科学与技术学院”，但其隶属于南昌大学，且专业为电子信息工程，属于理工科背景，未明确属于“非强势计算机理工背景”或“政策照顾性”范畴。\n2. 年限要求：年龄23岁，在22-30岁范围内。该候选人预计2026年毕业，属于2026届应届生，不属于“排除27年及之后的应届生”的范畴，因此符合要求。\n3. 专业要求：电子信息工程专业，属于理工科，符合“专业不限，非理工科专业可以放行”的要求。\n4. 地点要求：简历中明确“最近关注 [重庆]”，表明期望地点为重庆，符合要求。",
+      "ai_result": {
+        "is_target": true,
+        "reason": "1. 第一学历：南昌大学是211院校，符合985/211要求。虽然简历中提到“南昌大学科学与技术学院”，但其隶属于南昌大学，且专业为电子信息工程，属于理工科背景，未明确属于“非强势计算机理工背景”或“政策照顾性”范畴。\n2. 年限要求：年龄23岁，在22-30岁范围内。该候选人预计2026年毕业，属于2026届应届生，不属于“排除27年及之后的应届生”的范畴，因此符合要求。\n3. 专业要求：电子信息工程专业，属于理工科，符合“专业不限，非理工科专业可以放行”的要求。\n4. 地点要求：简历中明确“最近关注 [重庆]”，表明期望地点为重庆，符合要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"1. 第一学历：南昌大学是211院校，符合985/211要求。虽然简历中提到“南昌大学科学与技术学院”，但其隶属于南昌大学，且专业为电子信息工程，属于理工科背景，未明确属于“非强势计算机理工背景”或“政策照顾性”范畴。\\n2. 年限要求：年龄23岁，在22-30岁范围内。该候选人预计2026年毕业，属于2026届应届生，不属于“排除27年及之后的应届生”的范畴，因此符合要求。\\n3. 专业要求：电子信息工程专业，属于理工科，符合“专业不限，非理工科专业可以放行”的要求。\\n4. 地点要求：简历中明确“最近关注 [重庆]”，表明期望地点为重庆，符合要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_7",
+      "name": "贾先生\n    5小时前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "硕士学校山东农业大学非985/211院校，且简历中未提供本科学校信息，不符合第一学历为985/211院校的要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "硕士学校山东农业大学非985/211院校，且简历中未提供本科学校信息，不符合第一学历为985/211院校的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"硕士学校山东农业大学非985/211院校，且简历中未提供本科学校信息，不符合第一学历为985/211院校的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_8",
+      "name": "许先生\n    4小时前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "不符合学校要求：第一学历非985/211院校（湖南工程学院），且年龄超出要求范围（33岁，要求22-30岁）。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "不符合学校要求：第一学历非985/211院校（湖南工程学院），且年龄超出要求范围（33岁，要求22-30岁）。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"不符合学校要求：第一学历非985/211院校（湖南工程学院），且年龄超出要求范围（33岁，要求22-30岁）。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_9",
+      "name": "郭先生\n    1小时前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "该候选人不符合年龄要求（21岁，低于22-30岁的范围）和第一学历要求（兰州理工大学非985/211院校）。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "该候选人不符合年龄要求（21岁，低于22-30岁的范围）和第一学历要求（兰州理工大学非985/211院校）。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"该候选人不符合年龄要求（21岁，低于22-30岁的范围）和第一学历要求（兰州理工大学非985/211院校）。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_10",
+      "name": "冯丹\n    半小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_11",
+      "name": "吴先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_12",
+      "name": "张先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_13",
+      "name": "孙先生\n    半小时前有回复",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_14",
+      "name": "郭女士\n    1小时前浏览过职位",
+      "action": "failed",
+      "reason": "格式异常（无法解析为 JSON）",
+      "ai_result": {
+        "is_target": false,
+        "reason": "格式异常（无法解析为 JSON）",
+        "_parse_failed": true,
+        "raw_content": "```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_15",
+      "name": "王女士\n    1小时前有回复",
+      "action": "rejected_ai",
+      "reason": "第一学历（本科）重庆科技大学不属于985/211院校，不符合学校要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）重庆科技大学不属于985/211院校，不符合学校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）重庆科技大学不属于985/211院校，不符合学校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_16",
+      "name": "张女士\n    1小时前有回复",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「游戏」",
+      "hit_keyword": "游戏"
+    },
+    {
+      "card_id": "vidx_17",
+      "name": "廖女士\n    1小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_18",
+      "name": "王先生\n    半小时前有回复",
+      "action": "rejected_ai",
+      "reason": "第一学历长江大学非985/211院校，不符合学校要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历长江大学非985/211院校，不符合学校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历长江大学非985/211院校，不符合学校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_19",
+      "name": "杨先生\n    1小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_21",
+      "name": "冯女士\n    1小时前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "简历显示本科学校为沈阳理工大学，硕士学校为沈阳工业大学。这两所学校均不属于985或211院校，不符合职位要求中第一学历为985/211院校的条件。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "简历显示本科学校为沈阳理工大学，硕士学校为沈阳工业大学。这两所学校均不属于985或211院校，不符合职位要求中第一学历为985/211院校的条件。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"简历显示本科学校为沈阳理工大学，硕士学校为沈阳工业大学。这两所学校均不属于985或211院校，不符合职位要求中第一学历为985/211院校的条件。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_22",
+      "name": "鲁女士",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「教师」",
+      "hit_keyword": "教师"
+    },
+    {
+      "card_id": "vidx_23",
+      "name": "张女士\n    5分钟前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_24",
+      "name": "余先生\n    1小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「教培」",
+      "hit_keyword": "教培"
+    },
+    {
+      "card_id": "vidx_25",
+      "name": "王先生\n    1小时前浏览过职位",
+      "action": "rejected_ai",
+      "reason": "不符合年龄要求（31岁，要求22-30岁）；第一学历为东北大学网络教育学院（非统招），不符合985/211院校要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "不符合年龄要求（31岁，要求22-30岁）；第一学历为东北大学网络教育学院（非统招），不符合985/211院校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"不符合年龄要求（31岁，要求22-30岁）；第一学历为东北大学网络教育学院（非统招），不符合985/211院校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_26",
+      "name": "林先生\n    1小时前有回复",
+      "action": "rejected_ai",
+      "reason": "第一学历不符合要求。候选人的第一学历为广东轻工职业技术大学的大专，而非985/211院校。虽然目前正在华南师范大学（211）攻读本科，但尚未毕业，不符合第一学历为985/211院校的要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求。候选人的第一学历为广东轻工职业技术大学的大专，而非985/211院校。虽然目前正在华南师范大学（211）攻读本科，但尚未毕业，不符合第一学历为985/211院校的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求。候选人的第一学历为广东轻工职业技术大学的大专，而非985/211院校。虽然目前正在华南师范大学（211）攻读本科，但尚未毕业，不符合第一学历为985/211院校的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_27",
+      "name": "黄先生\n    1小时前有投递",
+      "action": "rejected_ai",
+      "reason": "第一学历不符合要求。候选人本科毕业于北京邮电大学世纪学院，该院校并非985或211院校。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求。候选人本科毕业于北京邮电大学世纪学院，该院校并非985或211院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求。候选人本科毕业于北京邮电大学世纪学院，该院校并非985或211院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_28",
+      "name": "杨洪品\n    1小时前有回复",
+      "action": "rejected_ai",
+      "reason": "第一学历贵州商学院不符合985/211院校要求。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历贵州商学院不符合985/211院校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历贵州商学院不符合985/211院校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_29",
+      "name": "尉先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_20",
+      "name": "李女士\n    1小时前有投递",
+      "action": "rejected_ai",
+      "reason": "第一学历不符合要求。简历显示其本科院校为重庆机电职业技术大学，该学校并非985或211院校。",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历不符合要求。简历显示其本科院校为重庆机电职业技术大学，该学校并非985或211院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历不符合要求。简历显示其本科院校为重庆机电职业技术大学，该学校并非985或211院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    }
+  ],
+  "error": null
+}

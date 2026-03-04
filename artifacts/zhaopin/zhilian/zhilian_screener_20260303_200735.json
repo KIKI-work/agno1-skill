@@ -1,0 +1,152 @@
+{
+  "status": "complete",
+  "stats": {
+    "total": 20,
+    "passed": 0,
+    "rejected_ai": 0,
+    "rejected_keyword": 18,
+    "skipped": 2,
+    "failed": 0
+  },
+  "results": [
+    {
+      "card_id": "vidx_0",
+      "name": "李女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "vidx_1",
+      "name": "唐女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "vidx_2",
+      "name": "董先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_3",
+      "name": "余女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "vidx_4",
+      "name": "周女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "vidx_5",
+      "name": "夏先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_6",
+      "name": "卢女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "vidx_7",
+      "name": "吴先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_8",
+      "name": "张先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_9",
+      "name": "钟先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_10",
+      "name": "罗先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_11",
+      "name": "陈先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_12",
+      "name": "王先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_13",
+      "name": "刘女士",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_14",
+      "name": "潘先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_15",
+      "name": "马女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "vidx_16",
+      "name": "李女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "vidx_17",
+      "name": "林先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    },
+    {
+      "card_id": "vidx_18",
+      "name": "向女士",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「女士」",
+      "hit_keyword": "女士"
+    },
+    {
+      "card_id": "vidx_19",
+      "name": "尉先生",
+      "action": "rejected_keyword",
+      "reason": "卡片摘要命中关键词: 「先生」",
+      "hit_keyword": "先生"
+    }
+  ],
+  "error": null
+}

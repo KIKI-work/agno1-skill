@@ -311,6 +311,7 @@ def run_screener(
         page = adapter.get_page(session_id=session_id, url=url)
         time.sleep(2.0)
 
+        # ── 初始：采集首屏已渲染的候选人 ─────────────────────────────
         cards: List[CardSummary] = adapter.get_candidate_cards(page)
         if not cards:
             return {
@@ -322,159 +323,176 @@ def run_screener(
                 "error": "未识别到候选人卡片，请确认已在「推荐人才」列表页",
             }
 
-        processed_ids: set[str] = set()   # 已处理的 card_id，用于去重
-        batch = 0
+        processed_ids: set[str] = set()   # 已处理的 card_id，用于全程去重
 
-        while cards:
-            batch += 1
-            log.info(f"── 第 {batch} 批，共 {len(cards)} 张新卡片 ──")
 
-            for card in cards:
-                processed_ids.add(card.card_id)
-                stats["total"] += 1
-                log.info(f"[总第 {stats['total']} 张] 处理: {card.name}")
+        def _process_card(card: CardSummary) -> None:
+            """处理单张候选人卡片（关键词预筛 → 打开弹窗 → AI 筛选 → 执行动作）。"""
+            nonlocal last_captured_name
 
-                # ── 风控：随机跳过（概率 10%，模拟人工浏览行为）────────
-                if random.random() < 0.10:
-                    log.info(f"  → [风控] 随机跳过")
-                    stats["skipped"] += 1
-                    results.append({
-                        "card_id": card.card_id, "name": card.name,
-                        "action": "skipped", "reason": "风控随机跳过",
-                    })
-                    _flush()
-                    continue
+            processed_ids.add(card.card_id)
+            stats["total"] += 1
+            log.info(f"[总第 {stats['total']} 张] 处理: {card.name} ({card.card_id})")
 
-                detail_opened = False
-                try:
-                    # ── 步骤 1：关键词预筛 ──────────────────────────
-                    if excluded_kw:
-                        card_text = f"{card.name} {card.age} {card.salary} {card.status}".lower()
-                        hit_kw = next((kw for kw in excluded_kw if kw in card_text), None)
-                        if hit_kw:
-                            log.info(f"  → [关键词排除] 命中关键词: 「{hit_kw}」（卡片摘要）")
-                            stats["rejected_keyword"] += 1
-                            results.append({
-                                "card_id": card.card_id, "name": card.name,
-                                "action": "rejected_keyword",
-                                "reason": f"卡片摘要命中关键词: 「{hit_kw}」",
-                                "hit_keyword": hit_kw,
-                            })
-                            _flush()
-                            continue
+            # ── 风控：随机跳过（概率 10%，模拟人工浏览行为）──────────
+            if random.random() < 0.10:
+                log.info(f"  → [风控] 随机跳过")
+                stats["skipped"] += 1
+                results.append({
+                    "card_id": card.card_id, "name": card.name,
+                    "action": "skipped", "reason": "风控随机跳过",
+                })
+                _flush()
+                return
 
-                    # ── 步骤 2：打开弹窗并提取简历 ──────────────────
-                    info = adapter.open_detail_and_extract(page, card, last_captured_name=last_captured_name)
-                    detail_opened = True
+            detail_opened = False
+            try:
+                # ── 步骤 1：关键词预筛（卡片摘要，速度快）──────────────
+                if excluded_kw:
+                    card_text = f"{card.name} {card.age} {card.salary} {card.status}".lower()
+                    hit_kw = next((kw for kw in excluded_kw if kw in card_text), None)
+                    if hit_kw:
+                        log.info(f"  → [关键词排除] 命中关键词: 「{hit_kw}」（卡片摘要）")
+                        stats["rejected_keyword"] += 1
+                        results.append({
+                            "card_id": card.card_id, "name": card.name,
+                            "action": "rejected_keyword",
+                            "reason": f"卡片摘要命中关键词: 「{hit_kw}」",
+                            "hit_keyword": hit_kw,
+                        })
+                        _flush()
+                        return
 
-                    # 全文关键词预筛（弹窗内容更丰富）
-                    if excluded_kw:
-                        full_text_lower = (info.full_text or "").lower()
-                        hit_kw = next((kw for kw in excluded_kw if kw in full_text_lower), None)
-                        if hit_kw:
-                            log.info(f"  → [关键词排除] 命中关键词: 「{hit_kw}」（简历全文）")
-                            stats["rejected_keyword"] += 1
-                            results.append({
-                                "card_id": card.card_id, "name": info.name,
-                                "action": "rejected_keyword",
-                                "reason": f"简历全文命中关键词: 「{hit_kw}」",
-                                "hit_keyword": hit_kw,
-                            })
-                            _flush()
-                            continue
+                # ── 步骤 2：打开弹窗并提取简历 ──────────────────────
+                info = adapter.open_detail_and_extract(page, card, last_captured_name=last_captured_name)
+                detail_opened = True
 
-                    # ── 步骤 3：AI 筛选 ──────────────────────────────
-                    _ai_prompt = _build_ai_prompt(info, target=ai_target, intensity=ai_intensity)
-                    log.info(f"  → [AI Prompt]\n{'─'*60}\n{_ai_prompt}\n{'─'*60}")
-                    ai_result = _call_ai(
-                        info,
-                        api_url=ai_api_url,
-                        api_key=ai_api_key,
-                        model=ai_model,
-                        target=ai_target,
-                        intensity=ai_intensity,
-                        max_tokens=ai_max_tokens,
-                    )
+                # 全文关键词预筛（弹窗内容更丰富）
+                if excluded_kw:
+                    full_text_lower = (info.full_text or "").lower()
+                    hit_kw = next((kw for kw in excluded_kw if kw in full_text_lower), None)
+                    if hit_kw:
+                        log.info(f"  → [关键词排除] 命中关键词: 「{hit_kw}」（简历全文）")
+                        stats["rejected_keyword"] += 1
+                        results.append({
+                            "card_id": card.card_id, "name": info.name,
+                            "action": "rejected_keyword",
+                            "reason": f"简历全文命中关键词: 「{hit_kw}」",
+                            "hit_keyword": hit_kw,
+                        })
+                        _flush()
+                        return
+
+                # ── 步骤 3：AI 筛选 ──────────────────────────────────
+                _ai_prompt = _build_ai_prompt(info, target=ai_target, intensity=ai_intensity)
+                log.info(f"  → [AI Prompt]\n{'─'*60}\n{_ai_prompt}\n{'─'*60}")
+                ai_result = _call_ai(
+                    info,
+                    api_url=ai_api_url,
+                    api_key=ai_api_key,
+                    model=ai_model,
+                    target=ai_target,
+                    intensity=ai_intensity,
+                    max_tokens=ai_max_tokens,
+                )
+                _finish = ai_result.get("finish_reason", "")
+
+                if info.name and info.name != "未知候选人" and not info.is_fallback:
+                    last_captured_name = info.name
+
+                # ── 步骤 4：根据 AI 结果执行动作 ─────────────────────
+                if ai_result["_parse_failed"]:
                     _raw = ai_result.get("raw_content", "")
-                    _finish = ai_result.get("finish_reason", "")
-                    _truncated = "[警告：输出被截断 finish_reason=length] " if _finish == "length" else ""
-                    log.info(f"  → [AI 原始回答] {_truncated}\n{'─'*60}\n{_raw}\n{'─'*60}")
-
-                    if info.name and info.name != "未知候选人" and not info.is_fallback:
-                        last_captured_name = info.name
-
-                    # ── 步骤 4：根据 AI 结果执行动作 ─────────────────
-                    if ai_result["_parse_failed"]:
-                        _raw_fail = ai_result.get("raw_content", "")
-                        _fin_fail = ai_result.get("finish_reason", "")
-                        _trunc_warn = " [输出被截断 finish_reason=length]" if _fin_fail == "length" else ""
-                        log.info(
-                            f"  → AI 调用失败: {ai_result['reason']}{_trunc_warn}\n"
-                            f"  → [AI 原始回答（失败）]\n{'─'*60}\n{_raw_fail}\n{'─'*60}"
-                        )
-                        stats["failed"] += 1
-                        results.append({
-                            "card_id": card.card_id, "name": info.name,
-                            "action": "failed", "reason": ai_result["reason"],
-                            "ai_result": ai_result,
-                        })
-                        _flush()
-                        notify_ai_failure("智联招聘", info.name, ai_result["reason"])
-
-                    elif ai_result["is_target"]:
-                        log.info(f"  → AI 通过: {ai_result['reason']}")
-                        if not dry_run:
-                            adapter.click_greet_button(page)
-                            log.info(f"  → 已打招呼")
-                        else:
-                            log.info(f"  → [dry-run] 跳过打招呼")
-                        stats["passed"] += 1
-                        results.append({
-                            "card_id": card.card_id, "name": info.name,
-                            "action": "greeted" if not dry_run else "dry_run_passed",
-                            "reason": ai_result["reason"],
-                            "ai_result": ai_result,
-                        })
-                        _flush()
-
-                    else:
-                        log.info(f"  → AI 未通过: {ai_result['reason']}")
-                        stats["rejected_ai"] += 1
-                        results.append({
-                            "card_id": card.card_id, "name": info.name,
-                            "action": "rejected_ai", "reason": ai_result["reason"],
-                            "ai_result": ai_result,
-                        })
-                        _flush()
-
-                except Exception as e:
-                    log.info(f"  → 处理失败: {e}")
+                    _trunc = " [输出被截断 finish_reason=length]" if _finish == "length" else ""
+                    log.info(
+                        f"  → AI 调用失败: {ai_result['reason']}{_trunc}\n"
+                        f"  → [AI 原始回答]\n{'─'*60}\n{_raw}\n{'─'*60}"
+                    )
                     stats["failed"] += 1
                     results.append({
-                        "card_id": card.card_id, "name": card.name,
-                        "action": "failed", "reason": str(e),
+                        "card_id": card.card_id, "name": info.name,
+                        "action": "failed",
+                        "reason": ai_result["reason"],
+                        "raw_content": _raw,
+                        "finish_reason": _finish,
+                    })
+                    _flush()
+                    notify_ai_failure("智联招聘", info.name, ai_result["reason"])
+
+                elif ai_result["is_target"]:
+                    log.info(f"  → AI 通过: {ai_result['reason']}")
+                    if not dry_run:
+                        adapter.click_greet_button(page)
+                        log.info(f"  → 已打招呼")
+                    else:
+                        log.info(f"  → [dry-run] 跳过打招呼")
+                    stats["passed"] += 1
+                    results.append({
+                        "card_id": card.card_id, "name": info.name,
+                        "action": "greeted" if not dry_run else "dry_run_passed",
+                        "ai_result": ai_result,
                     })
                     _flush()
 
-                finally:
-                    # 确保弹窗总是被关闭
-                    if detail_opened:
-                        try:
-                            adapter.close_detail(page)
-                        except Exception as e:
-                            log.info(f"  → 关闭弹窗失败: {e}")
+                else:
+                    log.info(f"  → AI 未通过: {ai_result['reason']}")
+                    stats["rejected_ai"] += 1
+                    results.append({
+                        "card_id": card.card_id, "name": info.name,
+                        "action": "rejected_ai",
+                        "ai_result": ai_result,
+                    })
+                    _flush()
 
-                # ── 风控：随机休眠 ────────────────────────────────────
-                sleep_s = random.randint(stay_min, stay_max)
-                log.info(f"  → 等待 {sleep_s} 秒...")
-                time.sleep(sleep_s)
+            except Exception as e:
+                log.info(f"  → 处理失败: {e}")
+                stats["failed"] += 1
+                results.append({
+                    "card_id": card.card_id, "name": card.name,
+                    "action": "failed", "reason": str(e),
+                })
+                _flush()
 
-            # ── 当前批次处理完，滚动加载下一批 ──────────────────────
-            log.info(f"── 第 {batch} 批处理完，滚动加载更多候选人...")
-            notify_batch_complete("智联招聘", stats, batch)
-            cards = adapter.scroll_and_get_new_cards(page, processed_ids)
-            if not cards:
-                log.info("── 已滚动到底，没有新候选人，筛选结束")
+            finally:
+                if detail_opened:
+                    try:
+                        adapter.close_detail(page)
+                    except Exception as e:
+                        log.info(f"  → 关闭弹窗失败: {e}")
+
+            # ── 风控：随机休眠 ────────────────────────────────────────
+            sleep_s = random.randint(stay_min, stay_max)
+            log.info(f"  → 等待 {sleep_s} 秒...")
+            time.sleep(sleep_s)
+
+        # ── 主循环：处理首屏 → 步进滚动 → 处理新卡片 → 直到到底 ─────
+        # 先处理首屏卡片
+        for card in cards:
+            if stats["passed"] >= max_greet:
+                break
+            _process_card(card)
+
+        # 主循环重构：交给 adapter 统一处理“滚动 + 新卡发现 + 翻页推进”
+        while stats["passed"] < max_greet:
+            if adapter.is_list_bottom(page):
+                log.info("── 已到达列表底部（检测到 recommend-indicator），筛选结束")
+                break
+
+            notify_batch_complete("智联招聘", stats, stats["total"])
+            new_cards = adapter.scroll_and_get_new_cards(page, processed_ids)
+            if not new_cards:
+                if adapter.is_list_bottom(page):
+                    log.info("── 已到达列表底部，筛选结束")
+                else:
+                    log.info("── 未发现新卡片，且无法继续推进（滚动/翻页均无效），筛选结束")
+                break
+
+            log.info(f"── 发现 {len(new_cards)} 张新卡片，开始处理...")
+            for card in new_cards:
+                if stats["passed"] >= max_greet:
+                    break
+                _process_card(card)
+
 
     finally:
         bm.close()
