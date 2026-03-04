@@ -1,0 +1,2 @@
+11:09:31 Task was destroyed but it is pending!
+task: <Task pending name='Task-3' coro=<Connection.run.<locals>.init() running at \\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_connection.py:310> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[ProtocolCallback.__init__.<locals>.cb() at \\192.168.0.113\共享文件夹\需求及测试文档_请按功能划分文件夹\obsidian\cjw\02_线索笔记\1.招聘\agno1-dev_0.0.1.0\agno1\.venv\Lib\site-packages\playwright\_impl\_connection.py:230]>

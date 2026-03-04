@@ -85,8 +85,8 @@ from agno1.browser_automation.zhaopin.zhilian.zhilian_screener_adapter import (
 from agno1.pipelines.zhaopin.notify import (
     notify_ai_failure,
     notify_all_complete,
-    notify_batch_complete,
 )
+
 
 
 # ---------------------------------------------------------------------------
@@ -129,56 +129,170 @@ def _call_ai(
     intensity: str = "balanced",
     max_tokens: int = 7000,
 ) -> Dict[str, Any]:
-    """
-    调用大模型 API 判断候选人是否符合目标。
-
-    Returns:
-        {"is_target": bool, "reason": str, "_parse_failed": bool}
-    """
+    """调用大模型并尽量稳健地解析结果。"""
     try:
+        import re
         import urllib.request
 
+        def _strip_fence(text: str) -> str:
+            t = text.strip()
+            t = re.sub(r"^```(?:json)?\s*", "", t, flags=re.IGNORECASE)
+            t = re.sub(r"\s*```$", "", t, flags=re.IGNORECASE)
+            t = re.sub(r"```(?:json)?", "", t, flags=re.IGNORECASE)
+            return t.strip()
+
+        def _extract_first_json_object(text: str) -> Optional[Dict[str, Any]]:
+            # 1) 全文直接 parse
+            try:
+                obj = json.loads(text)
+                if isinstance(obj, dict):
+                    return obj
+            except Exception:
+                pass
+
+            # 2) 平衡大括号提取首个 JSON 对象（忽略字符串中的括号）
+            start = -1
+            depth = 0
+            in_str = False
+            escaped = False
+            for i, ch in enumerate(text):
+                if in_str:
+                    if escaped:
+                        escaped = False
+                    elif ch == "\\":
+                        escaped = True
+                    elif ch == '"':
+                        in_str = False
+                    continue
+
+                if ch == '"':
+                    in_str = True
+                    continue
+
+                if ch == '{':
+                    if depth == 0:
+                        start = i
+                    depth += 1
+                elif ch == '}':
+                    if depth > 0:
+                        depth -= 1
+                        if depth == 0 and start >= 0:
+                            candidate = text[start:i + 1]
+                            try:
+                                obj = json.loads(candidate)
+                                if isinstance(obj, dict):
+                                    return obj
+                            except Exception:
+                                start = -1
+                                continue
+            return None
+
+        def _infer_from_plain_text(text: str) -> Optional[Dict[str, Any]]:
+            t = _strip_fence(text)
+            if not t:
+                return None
+
+            # 优先识别否定表达，避免“符合/不符合”误判
+            negative_hits = ["不符合", "不适合", "不匹配", "不通过", "不建议", "不是目标", "淘汰"]
+            positive_hits = ["符合", "适合", "匹配", "通过", "建议", "目标候选人"]
+
+            is_target: Optional[bool] = None
+            if any(k in t for k in negative_hits):
+                is_target = False
+            elif any(k in t for k in positive_hits):
+                is_target = True
+            elif re.search(r"\bfalse\b", t, flags=re.IGNORECASE):
+                is_target = False
+            elif re.search(r"\btrue\b", t, flags=re.IGNORECASE):
+                is_target = True
+
+            if is_target is None:
+                return None
+            return {"is_target": is_target, "reason": t}
+
         prompt = _build_ai_prompt(info, target=target, intensity=intensity)
-        payload = json.dumps({
+        base_payload = {
             "model": model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.3,
             "max_tokens": max_tokens,
             "stream": False,
-        }).encode("utf-8")
+        }
 
-        req = urllib.request.Request(
-            api_url,
-            data=payload,
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {api_key}",
-            },
-            method="POST",
-        )
-        with urllib.request.urlopen(req, timeout=120) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
+        def _request_once(payload_obj: Dict[str, Any]) -> tuple[Dict[str, Any], str]:
+            payload = json.dumps(payload_obj).encode("utf-8")
+            req = urllib.request.Request(
+                api_url,
+                data=payload,
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {api_key}",
+                },
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                raw_body = resp.read().decode("utf-8", errors="replace")
+                return json.loads(raw_body), raw_body
 
-        content: str = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-        finish_reason: str = data.get("choices", [{}])[0].get("finish_reason", "")
-        if not content.strip():
-            return {"is_target": False, "reason": "AI 返回内容为空", "_parse_failed": True, "raw_content": "", "finish_reason": finish_reason}
+        def _content_to_text(obj: Any) -> str:
+            if isinstance(obj, str):
+                return obj
+            if isinstance(obj, list):
+                chunks: list[str] = []
+                for item in obj:
+                    if isinstance(item, str):
+                        chunks.append(item)
+                    elif isinstance(item, dict):
+                        text = item.get("text")
+                        if isinstance(text, str):
+                            chunks.append(text)
+                            continue
+                        # 兼容 OpenAI 风格 content part: {"type":"text","text":"..."}
+                        if item.get("type") == "text" and isinstance(item.get("text"), str):
+                            chunks.append(item["text"])
+                return "".join(chunks)
+            if isinstance(obj, dict):
+                text = obj.get("text")
+                if isinstance(text, str):
+                    return text
+                return json.dumps(obj, ensure_ascii=False)
+            return str(obj)
 
-        # 解析 JSON（先剥离 AI 可能返回的 markdown 代码块包裹）
-        import re
-        result = None
-        stripped = re.sub(r"^```(?:json)?\s*", "", content.strip(), flags=re.IGNORECASE)
-        stripped = re.sub(r"\s*```$", "", stripped.strip())
+        # 优先强制 JSON 输出；若网关/模型不支持 response_format，则自动降级重试。
         try:
-            result = json.loads(stripped)
-        except Exception:
-            # 再尝试从内容中提取第一个完整 JSON 对象
-            m = re.search(r"\{[\s\S]*\}", stripped)
-            if m:
-                try:
-                    result = json.loads(m.group(0))
-                except Exception:
-                    pass
+            data, raw_response_body = _request_once({**base_payload, "response_format": {"type": "json_object"}})
+        except Exception as rf_err:
+            err_text = str(rf_err).lower()
+            if ("response_format" in err_text) or ("json_object" in err_text) or ("400" in err_text):
+                data, raw_response_body = _request_once(base_payload)
+            else:
+                raise
+
+        choices = data.get("choices", []) if isinstance(data, dict) else []
+        choice0 = choices[0] if isinstance(choices, list) and choices else {}
+        if not isinstance(choice0, dict):
+            choice0 = {}
+
+        message = choice0.get("message") if isinstance(choice0.get("message"), dict) else {}
+        message_content = message.get("content", "") if isinstance(message, dict) else ""
+        content: str = _content_to_text(message_content)
+        if not content:
+            content = _content_to_text(choice0.get("text", ""))
+        if not content:
+            content = _content_to_text(choice0.get("output_text", ""))
+        finish_reason: str = str(choice0.get("finish_reason", ""))
+
+        # 日志用原始回复：优先模型 message/content 原文，兜底为完整 HTTP 响应 body。
+        raw_reply_for_log = content if content.strip() else raw_response_body
+
+        if not content.strip():
+            return {"is_target": False, "reason": "AI 返回内容为空", "_parse_failed": True, "raw_content": raw_reply_for_log, "finish_reason": finish_reason}
+
+
+        stripped = _strip_fence(content)
+        result = _extract_first_json_object(stripped)
+        if not result:
+            result = _infer_from_plain_text(stripped)
 
         if not result or not isinstance(result.get("is_target"), bool):
             _trunc = "[输出被截断] " if finish_reason == "length" else ""
@@ -186,17 +300,18 @@ def _call_ai(
                 "is_target": False,
                 "reason": f"{_trunc}格式异常（无法解析为 JSON）",
                 "_parse_failed": True,
-                "raw_content": content,
+                "raw_content": raw_reply_for_log,
                 "finish_reason": finish_reason,
             }
 
         result["_parse_failed"] = False
-        result["raw_content"] = content
+        result["raw_content"] = raw_reply_for_log
         result["finish_reason"] = finish_reason
         return result
 
     except Exception as e:
         return {"is_target": False, "reason": f"请求失败: {e}", "_parse_failed": True, "raw_content": "", "finish_reason": ""}
+
 
 
 # ---------------------------------------------------------------------------
@@ -478,7 +593,6 @@ def run_screener(
                 log.info("── 已到达列表底部（检测到 recommend-indicator），筛选结束")
                 break
 
-            notify_batch_complete("智联招聘", stats, stats["total"])
             new_cards = adapter.scroll_and_get_new_cards(page, processed_ids)
             if not new_cards:
                 if adapter.is_list_bottom(page):
@@ -486,6 +600,7 @@ def run_screener(
                 else:
                     log.info("── 未发现新卡片，且无法继续推进（滚动/翻页均无效），筛选结束")
                 break
+
 
             log.info(f"── 发现 {len(new_cards)} 张新卡片，开始处理...")
             for card in new_cards:

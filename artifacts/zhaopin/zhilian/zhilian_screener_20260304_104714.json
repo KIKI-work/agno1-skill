@@ -1,12 +1,12 @@
 {
-  "status": "running",
+  "status": "complete",
   "stats": {
-    "total": 11,
-    "passed": 4,
-    "rejected_ai": 3,
-    "rejected_keyword": 1,
-    "skipped": 3,
-    "failed": 0
+    "total": 60,
+    "passed": 17,
+    "rejected_ai": 26,
+    "rejected_keyword": 9,
+    "skipped": 5,
+    "failed": 3
   },
   "results": [
     {
@@ -115,6 +115,530 @@
         "reason": "第一学历院校西南大学虽然是211院校，但其信息管理与信息系统专业不属于强势计算机理工背景，不符合“排除非强势计算机理工背景的985211学校”的要求。",
         "_parse_failed": false,
         "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历院校西南大学虽然是211院校，但其信息管理与信息系统专业不属于强势计算机理工背景，不符合“排除非强势计算机理工背景的985211学校”的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_11_E58898E58588E7949F7C29E5B2817C7CE59CA8E8",
+      "name": "刘先生\n    1小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "候选人符合所有要求。第一学历西安交通大学为985院校，且为强势理工科背景院校。年龄29岁，在22-30岁范围内，且非2027年及之后的应届生。专业为生物医学工程/生命科学与技术，符合专业不限的要求。期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"候选人符合所有要求。第一学历西安交通大学为985院校，且为强势理工科背景院校。年龄29岁，在22-30岁范围内，且非2027年及之后的应届生。专业为生物医学工程/生命科学与技术，符合专业不限的要求。期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_12_E6A281E58588E7949F7C26E5B2817C1.4E4B887-",
+      "name": "梁先生\n    10小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「银行」",
+      "hit_keyword": "银行"
+    },
+    {
+      "card_id": "vidx_13_E69D8EE58588E7949F7C22E5B2817C6E58D83-8E",
+      "name": "李先生\n    10小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「游戏」",
+      "hit_keyword": "游戏"
+    },
+    {
+      "card_id": "vidx_14_E58DA2E58588E7949F7C24E5B2817C1E4B887-2E",
+      "name": "卢先生\n    10小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求。\n1. **第一学历：** 本科毕业于合肥工业大学（211院校），专业为计算机科学与技术，属于强势计算机理工背景，符合要求。\n2. **年龄：** 24岁，在22-30岁范围内。硕士毕业年份为2026年，不属于2027年及之后的应届生，符合要求。\n3. **专业：** 本科和硕士专业均为理工科，符合专业不限的要求。\n4. **地点：** 期望地点为重庆，符合要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求。\\n1. **第一学历：** 本科毕业于合肥工业大学（211院校），专业为计算机科学与技术，属于强势计算机理工背景，符合要求。\\n2. **年龄：** 24岁，在22-30岁范围内。硕士毕业年份为2026年，不属于2027年及之后的应届生，符合要求。\\n3. **专业：** 本科和硕士专业均为理工科，符合专业不限的要求。\\n4. **地点：** 期望地点为重庆，符合要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_15_E59490E58588E7949F7C22E5B2817C8E58D83-1.",
+      "name": "唐先生\n    16小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "候选人本科毕业于211院校福州大学通信工程专业，符合第一学历要求且专业背景为理工科。年龄22岁，毕业时间为2026年，符合年龄及应届生要求（非2027年及之后应届生）。期望地点为重庆，符合地点要求。所有条件均符合。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"候选人本科毕业于211院校福州大学通信工程专业，符合第一学历要求且专业背景为理工科。年龄22岁，毕业时间为2026年，符合年龄及应届生要求（非2027年及之后应届生）。期望地点为重庆，符合地点要求。所有条件均符合。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_16_sE58588E7949F7C24E5B2817C7E58D83-9E58D83",
+      "name": "s先生\n    4天前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历兰州理工大学非985/211院校；硕士毕业时间为2027年，属于排除范围内的应届生。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历兰州理工大学非985/211院校；硕士毕业时间为2027年，属于排除范围内的应届生。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_17_E6BD98E58588E7949F7C23E5B2817C1E4B887-1.",
+      "name": "潘先生\n    3天前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历新疆大学虽为211院校，但根据学校要求中“排除非强势计算机理工背景的985211学校、或政策照顾性985/211学校”的规定，新疆大学在计算机理工领域可能被视为非强势或政策照顾性院校，因此不符合学校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历新疆大学虽为211院校，但根据学校要求中“排除非强势计算机理工背景的985211学校、或政策照顾性985/211学校”的规定，新疆大学在计算机理工领域可能被视为非强势或政策照顾性院校，因此不符合学校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_18_E5A49CE58588E7949F7C25E5B2817C1.5E4B887-",
+      "name": "夜先生\n    3天前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历院校大连海事大学虽为211，但其计算机理工背景非强势，且专业为信息管理与信息系统，不符合“排除非强势计算机理工背景的985211学校”的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历院校大连海事大学虽为211，但其计算机理工背景非强势，且专业为信息管理与信息系统，不符合“排除非强势计算机理工背景的985211学校”的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_19_E78E8BE5A5B3E5A3AB7C29E5B2817C1.2E4B887-",
+      "name": "王女士\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历贵州大学为211院校，但其计算机科学与技术专业不属于强势计算机理工背景，符合排除条件。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历贵州大学为211院校，但其计算机科学与技术专业不属于强势计算机理工背景，符合排除条件。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_20_E6BD98E58588E7949F7C22E5B2817C6E58D83-1.",
+      "name": "潘先生\n    10小时前在线",
+      "action": "failed",
+      "reason": "格式异常（无法解析为 JSON）",
+      "raw_content": "22岁，在22-30岁范围内，且2025年毕业，不属于2027年及之后的应届生；期望地点为重庆；专业为软件工程，符合专业不限要求。\"\n}\n```",
+      "finish_reason": "stop"
+    },
+    {
+      "card_id": "vidx_21_E4B887E58588E7949F7C23E5B2817C4E58D83-9E",
+      "name": "万先生\n    17小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历为211院校，但贵州大学的软件工程专业不属于强势计算机理工背景，不符合排除非强势计算机理工背景的985211学校的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历为211院校，但贵州大学的软件工程专业不属于强势计算机理工背景，不符合排除非强势计算机理工背景的985211学校的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_22_E5AE8BE58588E7949F7C25E5B2817C8E58D83-1.",
+      "name": "宋先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）哈尔滨理工大学非985/211院校，不符合学校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）哈尔滨理工大学非985/211院校，不符合学校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_23_E4BD99E5A5B3E5A3AB7C27E5B2817C1E4B887-1.",
+      "name": "余女士\n    10小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "年龄符合要求（27岁，2026年毕业不属于2027年及之后的应届生）。教育背景方面，简历中未提供本科学校信息，但硕士学校西南大学是211院校，且专业为人工智能（属于强势计算机理工背景），符合学校要求中“如果没有本科学校信息，只有硕士学校信息，且硕士学校符合要求，返回为true”的条件。专业为人工智能，符合“专业不限”的要求。期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"年龄符合要求（27岁，2026年毕业不属于2027年及之后的应届生）。教育背景方面，简历中未提供本科学校信息，但硕士学校西南大学是211院校，且专业为人工智能（属于强势计算机理工背景），符合学校要求中“如果没有本科学校信息，只有硕士学校信息，且硕士学校符合要求，返回为true”的条件。专业为人工智能，符合“专业不限”的要求。期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_24_E88C83E58588E7949F7C22E5B2817C1E4B887-2E",
+      "name": "范先生\n    10小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「游戏」",
+      "hit_keyword": "游戏"
+    },
+    {
+      "card_id": "vidx_25_E78E8BE58588E7949F7C24E5B2817C1E4B887-2E",
+      "name": "王先生\n    4小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求。第一学历为重庆大学（985院校），本科专业为自动化（理工科），符合学校及专业背景要求。年龄24岁，在22-30岁范围内，且硕士毕业时间为2026年，不属于2027年及之后的应届生。期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求。第一学历为重庆大学（985院校），本科专业为自动化（理工科），符合学校及专业背景要求。年龄24岁，在22-30岁范围内，且硕士毕业时间为2026年，不属于2027年及之后的应届生。期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_26_E58DA2E58588E7949F7C27E5B2817C1.8E4B887-",
+      "name": "卢先生\n    1小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "候选人硕士毕业于西南大学（211院校），但该校在计算机理工领域并非强势院校，不符合‘排除非强势计算机理工背景的985211学校’的要求。简历中未提供本科学校信息。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"候选人硕士毕业于西南大学（211院校），但该校在计算机理工领域并非强势院校，不符合‘排除非强势计算机理工背景的985211学校’的要求。简历中未提供本科学校信息。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_27_E58898E58588E7949F7C25E5B2817C9E58D83-1.",
+      "name": "刘先生\n    5天前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "本科学校西南科技大学非985/211，不符合第一学历为985211院校的要求；期望地点为成都，不符合期望地点为重庆的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"本科学校西南科技大学非985/211，不符合第一学历为985211院校的要求；期望地点为成都，不符合期望地点为重庆的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_28_E9AB98E58588E7949F7C25E5B2817C1E4B887-1.",
+      "name": "高先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_29_E8B5B5E58588E7949F7C27E5B2817C1.2E4B887-",
+      "name": "赵先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）郑州航空工业管理学院不符合985/211院校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）郑州航空工业管理学院不符合985/211院校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_0_E5BCA0E58588E7949F7C23E5B2817C9E58D83-1.",
+      "name": "张先生\n    3天前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "该候选人预计2027年7月硕士毕业，不符合“排除27年及之后的应届生”的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"该候选人预计2027年7月硕士毕业，不符合“排除27年及之后的应届生”的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_1_E982B9E58588E7949F7C23E5B2817C1E4B887-1.",
+      "name": "邹先生\n    4天前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "年限要求：候选人毕业时间为2027年，属于“27年及之后的应届生”，不符合“排除27年及之后的应届生”的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"年限要求：候选人毕业时间为2027年，属于“27年及之后的应届生”，不符合“排除27年及之后的应届生”的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_2_E69DA8E58588E7949F7C24E5B2817C1E4B887-2E",
+      "name": "杨先生\n    10小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求：第一学历长安大学为211院校，专业为自动化（属于理工科背景），且其硕士专业电子信息也为理工科；年龄24岁，在22-30岁范围内；毕业年份为2026年，不属于2027年及之后的应届生；专业符合不限要求；期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求：第一学历长安大学为211院校，专业为自动化（属于理工科背景），且其硕士专业电子信息也为理工科；年龄24岁，在22-30岁范围内；毕业年份为2026年，不属于2027年及之后的应届生；专业符合不限要求；期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_3_E59095E58588E7949F7C25E5B2817C1E4B887-2E",
+      "name": "吕先生\n    48小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人年龄25岁，符合22-30岁的要求，且2026年硕士毕业，不属于27年及之后的应届生。第一学历（本科）为西南交通大学（211院校），专业为自动化，属于理工科背景，符合学校要求（西南交通大学在理工科领域有一定实力，自动化专业也属于强势理工科）。期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人年龄25岁，符合22-30岁的要求，且2026年硕士毕业，不属于27年及之后的应届生。第一学历（本科）为西南交通大学（211院校），专业为自动化，属于理工科背景，符合学校要求（西南交通大学在理工科领域有一定实力，自动化专业也属于强势理工科）。期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_4_E69DA8E58588E7949F7C24E5B2817C1.5E4B887-",
+      "name": "杨先生\n    10小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求。本科学校信息缺失，但硕士学校重庆大学为985院校，且电子信息专业属于强势理工科，符合第一学历要求。年龄24岁，在22-30岁范围内，且2026年毕业不属于2027年及之后的应届生。专业为电子信息，符合专业不限的要求。期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求。本科学校信息缺失，但硕士学校重庆大学为985院校，且电子信息专业属于强势理工科，符合第一学历要求。年龄24岁，在22-30岁范围内，且2026年毕业不属于2027年及之后的应届生。专业为电子信息，符合专业不限的要求。期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_5_E58680E58588E7949F7C22E5B2817C9E58D83-1.",
+      "name": "冀先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "期望地点为西安，不符合期望地点为重庆的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"期望地点为西安，不符合期望地点为重庆的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_6_E78E8BE58588E7949F7C26E5B2817C3E4B887-4E",
+      "name": "王先生\n    3天前有回复",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "本科学校华中科技大学（985院校，理工科背景）符合要求，年龄26岁符合要求，专业（光学信息科学与工程/电子信息）符合专业不限的要求。但求职期望地点为[四川]，不符合期望地点为重庆的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"本科学校华中科技大学（985院校，理工科背景）符合要求，年龄26岁符合要求，专业（光学信息科学与工程/电子信息）符合专业不限的要求。但求职期望地点为[四川]，不符合期望地点为重庆的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_7_E5AEBFE58588E7949F7C24E5B2817C1.2E4B887-",
+      "name": "宿先生\n    21小时前浏览过职位",
+      "action": "failed",
+      "reason": "格式异常（无法解析为 JSON）",
+      "raw_content": "被视为强势计算机理工院校，不符合“排除非强势计算机理工背景的985211学校”的要求。\"\n}\n```",
+      "finish_reason": "stop"
+    },
+    {
+      "card_id": "vidx_8_E99988E5A5B3E5A3AB7C27E5B2817C1.5E4B887-",
+      "name": "陈女士\n    10小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求：第一学历郑州大学（211院校，软件工程专业，属于强势计算机理工背景），年龄27岁（在22-30岁范围内），硕士毕业时间为2026年（不属于2027年及之后的应届生），专业为计算机技术/软件工程（符合专业不限要求），期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求：第一学历郑州大学（211院校，软件工程专业，属于强势计算机理工背景），年龄27岁（在22-30岁范围内），硕士毕业时间为2026年（不属于2027年及之后的应届生），专业为计算机技术/软件工程（符合专业不限要求），期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_9_E7B1B3E58588E7949F7C24E5B2817C1E4B887-2E",
+      "name": "米先生\n    48小时前在线",
+      "action": "failed",
+      "reason": "格式异常（无法解析为 JSON）",
+      "raw_content": "\n```",
+      "finish_reason": "stop"
+    },
+    {
+      "card_id": "vidx_10_E6A281E5A5B3E5A3AB7C25E5B2817C1.2E4B887-",
+      "name": "梁女士\n    15小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「银行」",
+      "hit_keyword": "银行"
+    },
+    {
+      "card_id": "vidx_11_E5BB96E58588E7949F7C24E5B2817C1E4B887-2E",
+      "name": "廖先生\n    3天前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "该候选人的第一学历（本科）为成都工业学院，不符合学校要求中第一学历需为985/211院校的条件。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"该候选人的第一学历（本科）为成都工业学院，不符合学校要求中第一学历需为985/211院校的条件。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_12_E5AD99E58588E7949F7C23E5B2817C5E58D83-1E",
+      "name": "孙先生\n    16小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "该候选人第一学历为西南大学（211院校），但根据学校要求，需排除非强势计算机理工背景的985/211学校。西南大学虽然是211，但在计算机理工领域并非公认的强势院校，因此不符合学校的第一学历要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"该候选人第一学历为西南大学（211院校），但根据学校要求，需排除非强势计算机理工背景的985/211学校。西南大学虽然是211，但在计算机理工领域并非公认的强势院校，因此不符合学校的第一学历要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_13_E69DA8E58588E7949F7C25E5B2817C1.5E4B887-",
+      "name": "杨先生\n    48小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_14_E5AE8BE58588E7949F7C24E5B2817C1E4B887-2E",
+      "name": "宋先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）上海理工大学不符合985/211院校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）上海理工大学不符合985/211院校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_15_E69D8EE58588E7949F7C25E5B2817C8E58D83-1.",
+      "name": "李先生\n    48小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "vidx_16_E998BFE58588E7949F7C26E5B2817C1E4B887-1.",
+      "name": "阿先生\n    3小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "所有条件均符合。硕士学校哈尔滨工程大学为211院校，符合学历要求（根据规则，只有硕士学校信息且符合要求则为true）；年龄26岁，符合22-30岁范围，且作为2024年应届生，不在2027年及之后应届生排除范围；专业为海洋科学，符合专业不限要求；期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"所有条件均符合。硕士学校哈尔滨工程大学为211院校，符合学历要求（根据规则，只有硕士学校信息且符合要求则为true）；年龄26岁，符合22-30岁范围，且作为2024年应届生，不在2027年及之后应届生排除范围；专业为海洋科学，符合专业不限要求；期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_17_E591A8E58588E7949F7C27E5B2817C8E58D83-1E",
+      "name": "周先生\n    48小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "年龄27岁，符合22-30岁要求，且非27年及之后应届生。第一学历为苏州大学（211院校），计算机科学与技术专业，符合学历和专业要求（苏州大学的计算机科学与技术专业不属于非强势计算机理工背景）。期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"年龄27岁，符合22-30岁要求，且非27年及之后应届生。第一学历为苏州大学（211院校），计算机科学与技术专业，符合学历和专业要求（苏州大学的计算机科学与技术专业不属于非强势计算机理工背景）。期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_18_E79FB3E58588E7949F7C27E5B2817C1E4B887-2E",
+      "name": "石先生\n    23小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "vidx_19_E78E8BE58588E7949F7C27E5B2817C1.5E4B887-",
+      "name": "王先生\n    48小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "该候选人不符合学校要求：第一学历（本科）为重庆邮电大学，非985/211院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"该候选人不符合学校要求：第一学历（本科）为重庆邮电大学，非985/211院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_20_E78E8BE58588E7949F7C28E5B2817C1E4B887-1.",
+      "name": "王先生\n    4天前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求：第一学历为河海大学（211院校），专业为计算机科学与技术，符合强势计算机理工背景要求；年龄28岁，在22-30岁范围内且非27年及之后的应届生；专业不限要求也符合；期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求：第一学历为河海大学（211院校），专业为计算机科学与技术，符合强势计算机理工背景要求；年龄28岁，在22-30岁范围内且非27年及之后的应届生；专业不限要求也符合；期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_21_E69893E5A5B3E5A3AB7C29E5B2817C7CE59CA8E8",
+      "name": "易女士",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_22_E5A79AE58588E7949F7C25E5B2817C8E58D83-1E",
+      "name": "姚先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）西南石油大学不属于985/211院校，不符合学校要求中“第一学历为985211院校”的条件。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）西南石油大学不属于985/211院校，不符合学校要求中“第一学历为985211院校”的条件。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_23_E69D8EE58588E7949F7C25E5B2817C8E58D83-1.",
+      "name": "李先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历院校西南大学虽为211，但其计算机理工背景不属于强势，不符合排除非强势计算机理工背景985/211院校的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历院校西南大学虽为211，但其计算机理工背景不属于强势，不符合排除非强势计算机理工背景985/211院校的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_24_E78E8BE58588E7949F7C25E5B2817C1.5E4B887-",
+      "name": "王先生\n    12小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）郑州轻工业大学不符合985/211院校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）郑州轻工业大学不符合985/211院校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_25_E99FA9E58588E7949F7C24E5B2817C6E58D83-1E",
+      "name": "韩先生\n    48小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历四川农业大学虽为211院校，但根据学校要求，需排除非强势计算机理工背景的985/211学校。四川农业大学在计算机理工领域不属于强势院校。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历四川农业大学虽为211院校，但根据学校要求，需排除非强势计算机理工背景的985/211学校。四川农业大学在计算机理工领域不属于强势院校。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_26_E8B5B5E58588E7949F7C24E5B2817C1.2E4B887-",
+      "name": "赵先生\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）河南理工大学非985/211院校，不符合学校要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）河南理工大学非985/211院校，不符合学校要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_27_E69D8EE58588E7949F7C28E5B2817C2.4E4B887-",
+      "name": "李先生\n    1小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "所有条件均符合。硕士学校北京邮电大学为211院校，且计算机专业强势，符合学历要求（无本科信息时硕士符合即可）；年龄28岁在22-30岁范围内，且非2027年及之后应届生；专业为计算机工程与技术，符合专业不限要求；期望地点为重庆。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"所有条件均符合。硕士学校北京邮电大学为211院校，且计算机专业强势，符合学历要求（无本科信息时硕士符合即可）；年龄28岁在22-30岁范围内，且非2027年及之后应届生；专业为计算机工程与技术，符合专业不限要求；期望地点为重庆。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_28_E894A1E58588E7949F7C23E5B2817C2E58D83-7E",
+      "name": "蔡先生\n    5天前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「嵌入式硬件开发」",
+      "hit_keyword": "嵌入式硬件开发"
+    },
+    {
+      "card_id": "vidx_29_E591A8E5A5B3E5A3AB7C27E5B2817C1.1E4B887-",
+      "name": "周女士\n    20小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "该候选人的第一学历（本科）为大连民族大学，不属于985/211院校，不符合学校要求中“第一学历为985211院校”的条件。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"该候选人的第一学历（本科）为大连民族大学，不属于985/211院校，不符合学校要求中“第一学历为985211院校”的条件。\"\n}\n```",
         "finish_reason": "stop"
       }
     }

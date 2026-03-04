@@ -1,0 +1,67 @@
+{
+  "status": "complete",
+  "stats": {
+    "total": 7,
+    "passed": 0,
+    "rejected_ai": 1,
+    "rejected_keyword": 5,
+    "skipped": 1,
+    "failed": 0
+  },
+  "results": [
+    {
+      "card_id": "vidx_0_E69D9CE58588E7949F7C27E5B2817C8E58D83-1.",
+      "name": "杜先生",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_1_E69D8EE58588E7949F7C28E5B2817C2.5E4B887-",
+      "name": "李先生\n    5小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「游戏」",
+      "hit_keyword": "游戏"
+    },
+    {
+      "card_id": "vidx_2_E5BCA0E58588E7949F7C27E5B2817C1.2E4B887-",
+      "name": "张先生\n    10小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "vidx_3_E69893E5A5B3E5A3AB7C29E5B2817C7CE59CA8E8",
+      "name": "易女士\n    10小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    },
+    {
+      "card_id": "vidx_0_E5BE90E58588E7949F7C28E5B2817C4E58D83-9E",
+      "name": "杜先生\n    1天前有回复",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "该候选人的第一学历（本科）为杭州电子科技大学，并非985或211院校，不符合“第一学历为985211院校”的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"该候选人的第一学历（本科）为杭州电子科技大学，并非985或211院校，不符合“第一学历为985211院校”的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_1_E894A1E58588E7949F7C25E5B2817C7CE7A6BBE8",
+      "name": "李先生\n    5小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「游戏」",
+      "hit_keyword": "游戏"
+    },
+    {
+      "card_id": "vidx_2_E69CB1E58588E7949F7C29E5B2817C1E4B887-2E",
+      "name": "张先生\n    10小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「电气」",
+      "hit_keyword": "电气"
+    }
+  ],
+  "error": null
+}

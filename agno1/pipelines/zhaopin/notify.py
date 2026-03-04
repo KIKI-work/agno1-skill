@@ -19,7 +19,7 @@ from __future__ import annotations
 import threading
 import time
 import tkinter as tk
-from typing import Optional
+from typing import Dict, Optional
 
 
 # 活跃弹窗列表（线程安全：仅在 Tk 线程内访问）
@@ -135,14 +135,17 @@ def notify(
     title: str,
     message: str,
     timeout_s: int = 30,
+    *,
+    daemon: bool = True,
 ) -> None:
     """
-    在右下角弹出一个可关闭的桌面通知（非阻塞）。
+    在右下角弹出一个可关闭的桌面通知。
 
     Args:
         title:     弹窗标题（加粗显示）
         message:   弹窗正文（支持换行）
         timeout_s: 自动消失秒数，默认 30 秒
+        daemon:    是否以守护线程运行。True 不阻塞主流程；False 可确保进程退出前弹窗可见。
     """
     def _run() -> None:
         try:
@@ -151,13 +154,14 @@ def notify(
         except Exception:
             pass  # 通知失败不应影响主流程
 
-    t = threading.Thread(target=_run, daemon=True, name="toast-notify")
+    t = threading.Thread(target=_run, daemon=daemon, name="toast-notify")
     t.start()
+
 
 
 def notify_batch_complete(
     platform: str,
-    stats: dict,
+    stats: Dict[str, int],
     batch: int,
 ) -> None:
     """
@@ -192,7 +196,7 @@ def notify_batch_complete(
 
 def notify_all_complete(
     platform: str,
-    stats: dict,
+    stats: Dict[str, int],
 ) -> None:
     """
     全部候选人处理完成后推送最终统计通知。
@@ -221,7 +225,9 @@ def notify_all_complete(
         title=f"【{platform}】筛选完成",
         message="\n".join(lines),
         timeout_s=60,
+        daemon=False,
     )
+
 
 
 def notify_ai_failure(

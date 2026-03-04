@@ -1,0 +1,195 @@
+{
+  "status": "complete",
+  "stats": {
+    "total": 19,
+    "passed": 5,
+    "rejected_ai": 5,
+    "rejected_keyword": 7,
+    "skipped": 2,
+    "failed": 0
+  },
+  "results": [
+    {
+      "card_id": "vidx_0_E5BDADE58588E7949F7C27E5B2817C8E58D83-1E",
+      "name": "彭先生\n    2小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历（本科）华北水利水电大学非985/211院校，不符合学校要求；硕士毕业时间为2027年，属于27年及之后的应届生，不符合年限要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历（本科）华北水利水电大学非985/211院校，不符合学校要求；硕士毕业时间为2027年，属于27年及之后的应届生，不符合年限要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_1_E99988E5A5B3E5A3AB7C28E5B2817C8E58D83-1E",
+      "name": "陈女士\n    12小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「银行」",
+      "hit_keyword": "银行"
+    },
+    {
+      "card_id": "vidx_2_E99988E5A5B3E5A3AB7C24E5B2817C7CE59CA8E6",
+      "name": "陈女士\n    半小时前有投递",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求：\n1. **第一学历要求：** 简历中只有硕士学校信息，中南大学是985院校，管理科学与工程专业属于理工科范畴，不属于非强势计算机理工背景或政策照顾性院校。\n2. **年限要求：** 年龄24岁，在22-30岁范围内。2025年毕业的应届生未被排除（排除27年及之后的应届生）。\n3. **专业要求：** 专业不限，管理科学与工程符合要求。\n4. **地点要求：** 期望地点为重庆，符合要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求：\\n1. **第一学历要求：** 简历中只有硕士学校信息，中南大学是985院校，管理科学与工程专业属于理工科范畴，不属于非强势计算机理工背景或政策照顾性院校。\\n2. **年限要求：** 年龄24岁，在22-30岁范围内。2025年毕业的应届生未被排除（排除27年及之后的应届生）。\\n3. **专业要求：** 专业不限，管理科学与工程符合要求。\\n4. **地点要求：** 期望地点为重庆，符合要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_3_E99988E5A5B3E5A3AB7C24E5B2817C6E58D83-1E",
+      "name": "陈女士\n    2小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "年限要求：排除2027年及之后的应届生，该候选人硕士毕业时间为2027年6月，属于被排除范围。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"年限要求：排除2027年及之后的应届生，该候选人硕士毕业时间为2027年6月，属于被排除范围。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_4_E58898E5A5B3E5A3AB7C29E5B2817C5E58D83-1E",
+      "name": "刘女士\n    3小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "所有条件均符合。\n1.  **学历要求：** 候选人本科毕业于北京化工大学（211院校），硕士毕业于北京航空航天大学（985院校），均符合第一学历为985/211院校的要求。其专业测控技术与仪器和仪器仪表工程均为理工科背景，且学校非政策照顾性或非强势计算机理工背景。\n2.  **年龄要求：** 候选人年龄29岁，符合22-30岁的年龄范围，且非2027年及之后的应届生。\n3.  **专业要求：** 职位专业不限，候选人专业为理工科，符合要求。\n4.  **地点要求：** 候选人期望地点为重庆，符合要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"所有条件均符合。\\n1.  **学历要求：** 候选人本科毕业于北京化工大学（211院校），硕士毕业于北京航空航天大学（985院校），均符合第一学历为985/211院校的要求。其专业测控技术与仪器和仪器仪表工程均为理工科背景，且学校非政策照顾性或非强势计算机理工背景。\\n2.  **年龄要求：** 候选人年龄29岁，符合22-30岁的年龄范围，且非2027年及之后的应届生。\\n3.  **专业要求：** 职位专业不限，候选人专业为理工科，符合要求。\\n4.  **地点要求：** 候选人期望地点为重庆，符合要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_5_E69F8FE58588E7949F7C23E5B2817C3E58D83-5E",
+      "name": "柏先生\n    4小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「教师」",
+      "hit_keyword": "教师"
+    },
+    {
+      "card_id": "vidx_6_E98791E5A5B3E5A3AB7C30E5B2817C1E4B887-1.",
+      "name": "金女士\n    4小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「材料科学」",
+      "hit_keyword": "材料科学"
+    },
+    {
+      "card_id": "vidx_7_E5A48FE5A5B3E5A3AB7C27E5B2817C1E4B887-1.",
+      "name": "夏女士\n    10小时前在线",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "第一学历四川大学的管理科学专业属于非强势计算机理工背景，不符合“排除非强势计算机理工背景的985211学校”的要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"第一学历四川大学的管理科学专业属于非强势计算机理工背景，不符合“排除非强势计算机理工背景的985211学校”的要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_8_E58898E5A5B3E5A3AB7C25E5B2817C1.3E4B887-",
+      "name": "刘女士\n    48小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「银行」",
+      "hit_keyword": "银行"
+    },
+    {
+      "card_id": "vidx_0_E8A281E5A5B3E5A3AB7C25E5B2817C7E58D83-1.",
+      "name": "彭先生\n    2小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "本科学校华北水利水电大学非985/211院校，不符合第一学历要求。此外，该候选人硕士毕业时间为2027年，属于2027年应届生，不符合排除2027年及之后应届生的年限要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"本科学校华北水利水电大学非985/211院校，不符合第一学历要求。此外，该候选人硕士毕业时间为2027年，属于2027年应届生，不符合排除2027年及之后应届生的年限要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_1_E78E8BE5A5B3E5A3AB7C23E5B2817C7E58D83-1E",
+      "name": "王女士",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    },
+    {
+      "card_id": "vidx_2_E883A1E58588E7949F7C25E5B2817C8E58D83-1.",
+      "name": "陈女士\n    半小时前有投递",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "该候选人符合所有要求。教育背景方面，硕士毕业于985院校中南大学，根据规则，在缺少本科信息时，硕士学校符合要求即可。年龄24岁，在22-30岁范围内，且非2027年及之后的应届生。专业为管理科学与工程，符合专业不限的要求。期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"该候选人符合所有要求。教育背景方面，硕士毕业于985院校中南大学，根据规则，在缺少本科信息时，硕士学校符合要求即可。年龄24岁，在22-30岁范围内，且非2027年及之后的应届生。专业为管理科学与工程，符合专业不限的要求。期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_3_E5BCA0E5A5B3E5A3AB7C25E5B2817C1.3E4B887-",
+      "name": "陈女士\n    2小时前浏览过职位",
+      "action": "rejected_ai",
+      "ai_result": {
+        "is_target": false,
+        "reason": "不符合年限要求。简历显示该候选人硕士毕业时间为2027年6月，属于2027年及之后的应届生，而职位要求明确排除2027年及之后的应届生。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": false,\n  \"reason\": \"不符合年限要求。简历显示该候选人硕士毕业时间为2027年6月，属于2027年及之后的应届生，而职位要求明确排除2027年及之后的应届生。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_4_E99988E58588E7949F7C29E5B2817C8E58D83-1.",
+      "name": "刘女士\n    3小时前浏览过职位",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": "年龄29岁，符合22-30岁要求；第一学历北京化工大学为211院校，专业测控技术与仪器为理工科，符合学历和专业要求，且非排除范围；期望地点为重庆，符合地点要求。",
+        "_parse_failed": false,
+        "raw_content": "```json\n{\n  \"is_target\": true,\n  \"reason\": \"年龄29岁，符合22-30岁要求；第一学历北京化工大学为211院校，专业测控技术与仪器为理工科，符合学历和专业要求，且非排除范围；期望地点为重庆，符合地点要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_5_E78E8BE58588E7949F7C28E5B2817C1.4E4B887-",
+      "name": "柏先生\n    4小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「教师」",
+      "hit_keyword": "教师"
+    },
+    {
+      "card_id": "vidx_6_E99988E58588E7949F7C28E5B2817C8E58D83-1.",
+      "name": "金女士\n    4小时前浏览过职位",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「材料科学」",
+      "hit_keyword": "材料科学"
+    },
+    {
+      "card_id": "vidx_7_E7BD97E5A5B3E5A3AB7C27E5B2817C5E58D83-7E",
+      "name": "夏女士\n    10小时前在线",
+      "action": "greeted",
+      "ai_result": {
+        "is_target": true,
+        "reason": ". **年龄：** 27岁，在22-30岁范围内，且已于2023年硕士毕业，并非2027年及之后的应届生，符合要求。\\n3. **专业：** 本科管理科学，硕士工商管理，均为非理工科专业，但要求明确“专业不限，非理工科专业可以放行”，符合要求。\\n4. **地点：** 期望地点为重庆，符合要求。\"\n}",
+        "_parse_failed": false,
+        "raw_content": ". **年龄：** 27岁，在22-30岁范围内，且已于2023年硕士毕业，并非2027年及之后的应届生，符合要求。\\n3. **专业：** 本科管理科学，硕士工商管理，均为非理工科专业，但要求明确“专业不限，非理工科专业可以放行”，符合要求。\\n4. **地点：** 期望地点为重庆，符合要求。\"\n}\n```",
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "card_id": "vidx_8_E78E8BE58588E7949F7C28E5B2817C1E4B887-2E",
+      "name": "刘女士\n    48小时前在线",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「银行」",
+      "hit_keyword": "银行"
+    },
+    {
+      "card_id": "vidx_9_E9BB84E5A5B3E5A3AB7C30E5B2817C7E58D83-9E",
+      "name": "黄女士",
+      "action": "skipped",
+      "reason": "风控随机跳过"
+    }
+  ],
+  "error": null
+}
