@@ -1,0 +1,13 @@
+11:35:19 [boss] 已连接页面，URL: https://www.zhipin.com/web/chat/recommend
+11:35:21 [诊断] 当前页面 URL: https://www.zhipin.com/web/chat/recommend
+11:35:21 [诊断] 页面 frames 数量: 1
+11:35:21 [诊断]   frame[0] url=https://www.zhipin.com/web/chat/recommend
+11:35:23 [诊断] 内容 frame URL: https://www.zhipin.com/web/frame/recommend?filterParams=&t=&inspectFilterGuide=&version=9360&status=0&jobid=e19195566f4892eb0nV_3dm_F1JT&source=0
+11:35:23 [诊断] 页面 class 总数: 108
+11:35:23 [诊断] 候选卡片相关 class: ['recommend-wrap', 'candidate-head', 'job-selecter-wrap', 'job-selecter-options', 'chat-job-search', 'iboss-sousuoicon', 'job-list', 'job-item', 'job-desc', 'recommend-filter', 'candidate-recommend', 'candidate-body', 'recommend-list-wrap', 'card-list-wrap', 'list-top-card-wrap', 'card-list', 'card-item', 'candidate-card-wrap', 'card-inner', 'geek-desc', 'iboss-close', 'with-recommend-reason', 'recommend-reason']
+11:35:23 ── 第 1 批，共 15 张新卡片 ──
+11:35:23 [总第 1 张] 处理: 王咏粲
+11:35:24   → [关键词排除] 命中关键词: 「产品经理」（简历全文）
+11:35:27 [总第 2 张] 处理: 吴霞
+11:35:28   → 处理失败: [boss] 候选人卡片信息提取失败: 吴霞 (id=8eb1164d1acab5931nV62N26E1NW)
+11:35:28   → 等待 4 秒...

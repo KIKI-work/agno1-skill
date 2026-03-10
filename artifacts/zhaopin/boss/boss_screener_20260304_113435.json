@@ -1,0 +1,27 @@
+{
+  "status": "interrupted",
+  "stats": {
+    "total": 2,
+    "passed": 0,
+    "rejected_ai": 0,
+    "rejected_keyword": 1,
+    "skipped": 0,
+    "failed": 1
+  },
+  "results": [
+    {
+      "card_id": "91a0c398a911ea9e0Hdz39y_GVpY",
+      "name": "王咏粲",
+      "action": "rejected_keyword",
+      "reason": "简历全文命中关键词: 「产品经理」",
+      "hit_keyword": "产品经理"
+    },
+    {
+      "card_id": "8eb1164d1acab5931nV62N26E1NW",
+      "name": "吴霞",
+      "action": "failed",
+      "reason": "[boss] 候选人卡片信息提取失败: 吴霞 (id=8eb1164d1acab5931nV62N26E1NW)"
+    }
+  ],
+  "error": null
+}
